@@ -21,6 +21,14 @@ usuario → https://dvilmar.vercel.app (Vercel, rewrite/gateway)
   origen de Vultr. Así `dvilmar.vercel.app` queda como entrada pública con
   la CDN/TLS de Vercel por delante.
 
+> **Nota — VPS compartido con los bots de trading de qx-core (950MB RAM
+> total).** El contenedor de este portfolio corre con `mem_limit: 48m`,
+> `cpus: 0.25` y logs acotados (ver `infra/vultr/docker-compose.yml`), y
+> escucha solo en `127.0.0.1:8091` para no chocar con los puertos 3000
+> (dashboard) / 8765 (api) de qx-core. `infra/vultr/setup.sh` nunca toca
+> ufw más allá de añadir reglas ALLOW, ni borra el `default` de Nginx —
+> pensado para no interferir con nada más que corra en esa máquina.
+
 ## Desarrollo local
 
 ```bash
@@ -40,42 +48,33 @@ docker run -p 8080:80 danielvilar-portfolio
 
 ## Despliegue
 
+No hay GitHub Actions en este repo (por decisión explícita) — el deploy es
+manual, por SSH directo al VPS.
+
 ### 1. Provisionar el VPS en Vultr
 
-Crear un VPS Ubuntu 22.04/24.04 (plan básico es suficiente) y anotar su IP
-pública. Luego, con SSH como root:
+Con SSH como root en el VPS (existente o nuevo):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/dvilmar/danielvilar/main/infra/vultr/setup.sh | bash -s -- <IP-DEL-VPS>
+git clone https://github.com/dvilmar/danielvilar.git /opt/danielvilar
+cd /opt/danielvilar
+./infra/vultr/setup.sh <IP-DEL-VPS>
 ```
 
-Esto instala Docker, Nginx, certbot, abre el firewall (22/80/443) y emite el
-certificado TLS para `<IP-DEL-VPS>.nip.io`. Al terminar, subir el
-`docker-compose.yml` a `/opt/danielvilar/` (el script ya intenta copiarlo si
-está junto a `setup.sh`) y levantar el contenedor:
+Esto instala (si faltan) Docker, Nginx y certbot, añade reglas `ufw allow`
+para 80/443 (sin tocar el resto de la configuración del firewall) y emite
+el certificado TLS para `<IP-DEL-VPS>.nip.io`. Luego construye y levanta el
+contenedor (build local, sin registry):
 
 ```bash
-cd /opt/danielvilar && docker compose up -d
+docker compose -f infra/vultr/docker-compose.yml up -d --build
 ```
 
-### 2. Secrets en GitHub (para el deploy automático)
+### 2. Actualizar tras un cambio
 
-En `Settings → Secrets and variables → Actions` del repo, añadir:
-
-| Secret            | Valor                                             |
-| ----------------- | -------------------------------------------------- |
-| `VULTR_HOST`      | IP pública del VPS                                  |
-| `VULTR_SSH_USER`  | usuario SSH (`root` o el que se cree)               |
-| `VULTR_SSH_KEY`   | clave privada SSH con acceso al VPS                 |
-
-Cada push a `main` construye la imagen, la publica en
-`ghcr.io/dvilmar/danielvilar` y hace SSH al VPS para actualizar el
-contenedor (`.github/workflows/deploy-vultr.yml`).
-
-> Primer despliegue: el paquete en GHCR se crea privado por defecto. Hay que
-> ir a `github.com/dvilmar?tab=packages` → `danielvilar` → *Package settings*
-> → *Change visibility* → **Public**, para que el VPS pueda hacer
-> `docker compose pull` sin autenticarse.
+```bash
+cd /opt/danielvilar && git pull && docker compose -f infra/vultr/docker-compose.yml up -d --build
+```
 
 ### 3. Conectar Vercel como gateway
 

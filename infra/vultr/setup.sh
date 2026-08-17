@@ -1,24 +1,31 @@
 #!/usr/bin/env bash
 # One-time bootstrap for the Vultr VPS that serves this portfolio.
-# Run as root (or with sudo) on a fresh Ubuntu 22.04/24.04 instance:
+# Run as root (or with sudo):
 #
-#   curl -fsSL https://raw.githubusercontent.com/dvilmar/danielvilar/main/infra/vultr/setup.sh | bash -s -- <server-ip>
+#   ./setup.sh <server-ip>
 #
-# It installs Docker, host Nginx + certbot, opens the firewall, and issues a
+# It installs (if missing) Docker + host Nginx + certbot, and issues a
 # Let's Encrypt certificate for <server-ip>.nip.io (no domain purchase
 # needed — nip.io resolves that hostname back to <server-ip>).
+#
+# SAFE FOR A SHARED PRODUCTION BOX: this script only ever touches things
+# named "danielvilar" (its own nginx site file, its own app dir) or adds
+# firewall ALLOW rules. It never disables/force-enables ufw, never removes
+# the existing nginx "default" site, and never touches ports 3000/8765
+# (used by other services on this box) -- the app container listens on
+# 127.0.0.1:8091 only (see docker-compose.yml).
 set -euo pipefail
 
 SERVER_IP="${1:?Usage: setup.sh <server-ip>}"
 DOMAIN="${SERVER_IP}.nip.io"
-APP_DIR="/opt/danielvilar"
+APP_PORT=8091
 
-echo "==> Bootstrapping ${DOMAIN}"
+echo "==> Bootstrapping ${DOMAIN} (app port ${APP_PORT}, leaves 3000/8765 alone)"
 
 apt-get update -y
 apt-get install -y ca-certificates curl gnupg ufw nginx certbot python3-certbot-nginx
 
-# --- Docker ---
+# --- Docker (skip if already installed, e.g. it already runs qx-core) ---
 if ! command -v docker >/dev/null 2>&1; then
   install -m 0755 -d /etc/apt/keyrings
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
@@ -30,24 +37,26 @@ if ! command -v docker >/dev/null 2>&1; then
   apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 fi
 
-# --- Firewall ---
-ufw allow OpenSSH
-ufw allow 80/tcp
-ufw allow 443/tcp
-ufw --force enable
+# --- Firewall: only add ALLOW rules, never touch enable/disable state or
+#     any pre-existing rule. If ufw is inactive, leave it inactive -- that
+#     decision belongs to whoever manages this box, not this script. ---
+ufw allow 80/tcp || true
+ufw allow 443/tcp || true
+if ufw status | grep -q "Status: active"; then
+  echo "==> ufw already active, rules for 80/443 ensured"
+else
+  echo "==> ufw is inactive -- left as-is (not enabling it from this script)"
+fi
 
-# --- App directory + compose file ---
-mkdir -p "${APP_DIR}"
-cp "$(dirname "$0")/docker-compose.yml" "${APP_DIR}/docker-compose.yml" 2>/dev/null || true
-
-# --- Host Nginx reverse proxy (HTTP first, certbot upgrades to HTTPS) ---
+# --- Host Nginx: own site file only, does not touch any other server
+#     block (including "default") ---
 cat > /etc/nginx/sites-available/danielvilar <<NGINX
 server {
     listen 80;
     server_name ${DOMAIN};
 
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:${APP_PORT};
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
@@ -57,12 +66,12 @@ server {
 NGINX
 
 ln -sf /etc/nginx/sites-available/danielvilar /etc/nginx/sites-enabled/danielvilar
-rm -f /etc/nginx/sites-enabled/default
 nginx -t && systemctl reload nginx
 
 echo "==> Requesting Let's Encrypt certificate for ${DOMAIN}"
 certbot --nginx -d "${DOMAIN}" --non-interactive --agree-tos --register-unsafely-without-email --redirect
 
-echo "==> Done. Bring up the app container with:"
-echo "    cd ${APP_DIR} && docker compose up -d"
+echo "==> Nginx/TLS done. Now clone + build the app (no registry needed):"
+echo "    git clone https://github.com/dvilmar/danielvilar.git /opt/danielvilar"
+echo "    cd /opt/danielvilar && docker compose -f infra/vultr/docker-compose.yml up -d --build"
 echo "==> Site will be live at: https://${DOMAIN}"
