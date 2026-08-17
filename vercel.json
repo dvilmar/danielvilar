@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "https://REPLACE_WITH_VULTR_IP.nip.io/$1" }
+  ]
+}

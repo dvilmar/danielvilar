@@ -1,0 +1,6 @@
+services:
+  app:
+    image: ghcr.io/dvilmar/danielvilar:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:80"
