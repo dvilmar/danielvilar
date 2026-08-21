@@ -44,7 +44,6 @@ export default function Header() {
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
             className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-foreground sm:hidden"
           >
-            <span className="sr-only">{open ? "Cerrar menú" : "Abrir menú"}</span>
             {open ? (
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
