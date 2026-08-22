@@ -6,13 +6,19 @@ export type Project = {
   status: "En producción" | "Demo" | "Académico";
 };
 
-// TODO(daniel): revisa y ajusta la selección/orden/descripciones de proyectos.
 export const projects: Project[] = [
   {
     name: "QX-Core",
     description:
       "Sistema de trading algorítmico multi-estrategia: motor BTC/USDT en producción (Binance), estrategia de reversión a VWAP para cuentas de fondeo en paper trading (Alpaca), y ~19 fuentes de retorno investigadas con backtest riguroso (IS/OOS, Monte Carlo, stress-testing).",
     tags: ["Python", "Trading algorítmico", "Backtesting", "Binance", "Alpaca"],
+    status: "En producción",
+  },
+  {
+    name: "Tavero",
+    description:
+      "App de gestión para restaurantes: pedidos y menús con fotos de platos (Expo + Supabase), con web pública desplegada en Vercel. Actualizaciones OTA en producción vía EAS.",
+    tags: ["Expo", "React Native", "Supabase", "Next.js"],
     status: "En producción",
   },
   {

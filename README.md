@@ -91,6 +91,8 @@ cd /opt/danielvilar && git pull && docker compose -f infra/vultr/docker-compose.
 
 ## Pendiente de contenido
 
-Hay marcadores `TODO(daniel)` en `src/data/` y `src/components/About.tsx`
-con textos placeholder (bio, proyectos, skills, enlaces de contacto) — hay
-que revisarlos y sustituirlos por el contenido definitivo.
+Email, LinkedIn y la selección de proyectos ya son reales. Sigue pendiente
+(marcador `TODO(daniel)`):
+
+- `src/components/About.tsx` — bio genérica, sustituir por el texto real.
+- `src/data/skills.ts` — lista de skills sin confirmar/ajustar.
