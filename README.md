@@ -51,22 +51,15 @@ docker run -p 8080:80 danielvilar-portfolio
 No hay GitHub Actions en este repo (por decisión explícita) — el deploy es
 manual, por SSH directo al VPS.
 
-### 1. Provisionar el VPS en Vultr
+### 1. Provisionar el VPS en Vultr — ✅ hecho
 
-Con SSH como root en el VPS (existente o nuevo):
+Ya desplegado en el VPS de qx-core (185.92.222.233), origen live en
+`https://185.92.222.233.nip.io`. Para repetir el proceso en otro VPS:
 
 ```bash
 git clone https://github.com/dvilmar/danielvilar.git /opt/danielvilar
 cd /opt/danielvilar
 ./infra/vultr/setup.sh <IP-DEL-VPS>
-```
-
-Esto instala (si faltan) Docker, Nginx y certbot, añade reglas `ufw allow`
-para 80/443 (sin tocar el resto de la configuración del firewall) y emite
-el certificado TLS para `<IP-DEL-VPS>.nip.io`. Luego construye y levanta el
-contenedor (build local, sin registry):
-
-```bash
 docker compose -f infra/vultr/docker-compose.yml up -d --build
 ```
 
@@ -83,11 +76,8 @@ cd /opt/danielvilar && git pull && docker compose -f infra/vultr/docker-compose.
 2. En *Build & Development Settings*: Framework Preset = **Other**, Build
    Command = *(vacío)*, Output Directory = *(vacío)*. El proyecto no debe
    construir la app Next real — solo sirve para aplicar los `rewrites` de
-   `vercel.json`.
-3. Editar `vercel.json` y sustituir `REPLACE_WITH_VULTR_IP` por la IP real
-   del VPS, luego hacer commit/push (Vercel despliega automáticamente en
-   cada push a `main`).
-4. El proyecto queda accesible en `https://dvilmar.vercel.app`.
+   `vercel.json` (ya apunta a `https://185.92.222.233.nip.io`).
+3. El proyecto queda accesible en `https://dvilmar.vercel.app`.
 
 ## Pendiente de contenido
 
