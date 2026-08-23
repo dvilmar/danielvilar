@@ -1,9 +1,10 @@
 import { skillGroups } from "@/data/skills";
+import Eyebrow from "@/components/Eyebrow";
 
 export default function Skills() {
   return (
     <section id="skills" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-      <h2 className="mb-6 font-mono text-sm text-accent">04. Skills</h2>
+      <Eyebrow>04. Skills</Eyebrow>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {skillGroups.map((group) => (
           <div key={group.label}>

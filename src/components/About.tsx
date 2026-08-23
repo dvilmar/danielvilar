@@ -1,9 +1,10 @@
 import { links } from "@/data/links";
+import Eyebrow from "@/components/Eyebrow";
 
 export default function About() {
   return (
     <section id="sobre-mi" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-      <h2 className="mb-6 font-mono text-sm text-accent">01. Sobre mí</h2>
+      <Eyebrow>01. Sobre mí</Eyebrow>
       <p className="max-w-2xl text-muted">
         Full Stack Developer especializado en Java/Spring Boot y React, con
         experiencia en arquitecturas de microservicios, mensajería asíncrona

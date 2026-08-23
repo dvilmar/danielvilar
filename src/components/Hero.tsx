@@ -5,8 +5,10 @@ export default function Hero() {
   return (
     <section className="mx-auto flex max-w-3xl flex-col-reverse items-start gap-8 px-6 pb-16 pt-20 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex flex-col gap-6">
-        <p className="font-mono text-sm text-accent">Hola, soy</p>
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+          Hola, soy
+        </p>
+        <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
           Daniel Vilar Martínez
         </h1>
         <p className="max-w-xl text-lg text-muted">

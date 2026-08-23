@@ -18,7 +18,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-10 border-b border-border/60 bg-background/80 backdrop-blur">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-        <Link href="#" className="font-mono text-sm text-foreground">
+        <Link href="#" className="font-display text-base font-semibold text-foreground">
           dvilmar
         </Link>
         <nav className="hidden items-center gap-6 text-sm text-muted sm:flex">

@@ -1,9 +1,10 @@
 import { links } from "@/data/links";
+import Eyebrow from "@/components/Eyebrow";
 
 export default function Contact() {
   return (
     <section id="contacto" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-      <h2 className="mb-6 font-mono text-sm text-accent">05. Contacto</h2>
+      <Eyebrow>05. Contacto</Eyebrow>
       <p className="max-w-xl text-muted">
         ¿Quieres hablar de un proyecto o una oportunidad? Escríbeme, respondo
         siempre.

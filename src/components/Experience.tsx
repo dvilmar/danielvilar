@@ -1,9 +1,10 @@
 import { experience } from "@/data/experience";
+import Eyebrow from "@/components/Eyebrow";
 
 export default function Experience() {
   return (
     <section id="experiencia" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-      <h2 className="mb-6 font-mono text-sm text-accent">02. Experiencia</h2>
+      <Eyebrow>02. Experiencia</Eyebrow>
       <div className="flex flex-col gap-8">
         {experience.map((job) => (
           <div key={`${job.company}-${job.role}`}>
