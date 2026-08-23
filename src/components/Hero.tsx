@@ -10,9 +10,9 @@ export default function Hero() {
           Daniel Vilar Martínez
         </h1>
         <p className="max-w-xl text-lg text-muted">
-          Full Stack Developer — Java/Spring Boot, React, Microservicios.
-          Construyo sistemas backend, dashboards y herramientas de trading
-          algorítmico, con foco en código correcto y mantenible.
+          Full Stack Developer. Construyo sistemas backend, dashboards y
+          herramientas de trading algorítmico, con foco en código correcto y
+          mantenible.
         </p>
         <div className="flex gap-4 pt-2 text-sm">
           <a

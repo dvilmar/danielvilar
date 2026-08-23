@@ -42,7 +42,7 @@ export default function Image() {
             display: "flex",
           }}
         >
-          Full Stack Developer — Java/Spring Boot, React, Microservicios
+          Full Stack Developer
         </div>
       </div>
     ),
