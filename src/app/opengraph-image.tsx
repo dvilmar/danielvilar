@@ -42,7 +42,7 @@ export default function Image() {
             display: "flex",
           }}
         >
-          Desarrollo de software y trading algorítmico
+          Full Stack Developer — Java/Spring Boot, React, Microservicios
         </div>
       </div>
     ),

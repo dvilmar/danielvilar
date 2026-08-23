@@ -3,7 +3,7 @@ import { projects } from "@/data/projects";
 export default function Projects() {
   return (
     <section id="proyectos" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-      <h2 className="mb-6 font-mono text-sm text-accent">02. Proyectos</h2>
+      <h2 className="mb-6 font-mono text-sm text-accent">03. Proyectos</h2>
       <div className="flex flex-col gap-4">
         {projects.map((project) => (
           <article

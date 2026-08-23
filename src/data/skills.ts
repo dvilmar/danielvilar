@@ -1,19 +1,22 @@
-// TODO(daniel): ajusta la lista a tus skills reales.
 export const skillGroups = [
   {
-    label: "Lenguajes",
-    items: ["Python", "TypeScript", "Java", "SQL"],
+    label: "Frameworks y lenguajes",
+    items: ["Java", "Spring Boot", "JPA/Hibernate", "React", "Node", "Redux", "TypeScript"],
   },
   {
-    label: "Backend & datos",
-    items: ["FastAPI", "Spring", "PostgreSQL", "Docker"],
+    label: "Mensajería y arquitectura",
+    items: ["Microservicios", "REST APIs", "Apache Kafka", "WebSockets", "OpenAPI/Swagger"],
   },
   {
-    label: "Frontend",
-    items: ["Next.js", "React", "Tailwind CSS"],
+    label: "DevOps",
+    items: ["Docker", "GitLab", "GitHub Actions", "Jenkins", "SonarQube"],
+  },
+  {
+    label: "Bases de datos",
+    items: ["PostgreSQL", "SQL", "Oracle", "Redis", "ElasticSearch"],
   },
   {
     label: "Trading algorítmico",
-    items: ["Backtesting", "Binance API", "Alpaca API", "Análisis cuantitativo"],
+    items: ["Python", "Backtesting", "Binance API", "Alpaca API", "Análisis cuantitativo"],
   },
 ];

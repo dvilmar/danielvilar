@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 const SITE_URL = "https://dvilmar.vercel.app";
 const TITLE = "Daniel Vilar Martínez";
 const DESCRIPTION =
-  "Portfolio personal de Daniel Vilar Martínez — desarrollo de software y trading algorítmico.";
+  "Portfolio personal de Daniel Vilar Martínez — Full Stack Developer (Java/Spring Boot, React, Microservicios) y trading algorítmico.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

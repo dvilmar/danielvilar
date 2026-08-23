@@ -6,6 +6,7 @@ import { links } from "@/data/links";
 
 const NAV_ITEMS = [
   { href: "#sobre-mi", label: "Sobre mí" },
+  { href: "#experiencia", label: "Experiencia" },
   { href: "#proyectos", label: "Proyectos" },
   { href: "#skills", label: "Skills" },
   { href: "#contacto", label: "Contacto" },

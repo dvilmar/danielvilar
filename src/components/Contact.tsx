@@ -3,7 +3,7 @@ import { links } from "@/data/links";
 export default function Contact() {
   return (
     <section id="contacto" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-      <h2 className="mb-6 font-mono text-sm text-accent">04. Contacto</h2>
+      <h2 className="mb-6 font-mono text-sm text-accent">05. Contacto</h2>
       <p className="max-w-xl text-muted">
         ¿Quieres hablar de un proyecto o una oportunidad? Escríbeme, respondo
         siempre.
@@ -30,6 +30,12 @@ export default function Contact() {
           className="rounded-full border border-border px-5 py-2.5 font-medium transition-colors hover:border-accent hover:text-accent"
         >
           GitHub
+        </a>
+        <a
+          href={links.phone}
+          className="rounded-full border border-border px-5 py-2.5 font-medium transition-colors hover:border-accent hover:text-accent"
+        >
+          +34 640 364 763
         </a>
       </div>
     </section>
