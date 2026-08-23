@@ -6,6 +6,7 @@ import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import { links } from "@/data/links";
 
 const personJsonLd = {
@@ -27,11 +28,21 @@ export default function Home() {
       <Header />
       <main id="contenido" className="flex-1">
         <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Skills />
-        <Contact />
+        <Reveal>
+          <About />
+        </Reveal>
+        <Reveal>
+          <Experience />
+        </Reveal>
+        <Reveal>
+          <Projects />
+        </Reveal>
+        <Reveal>
+          <Skills />
+        </Reveal>
+        <Reveal>
+          <Contact />
+        </Reveal>
       </main>
       <Footer />
     </>

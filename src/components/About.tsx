@@ -18,7 +18,7 @@ export default function About() {
       <a
         href={links.cv}
         download
-        className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+        className="mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-[0_10px_24px_-12px_rgba(34,211,238,0.3)]"
       >
         Descargar CV
       </a>

@@ -9,7 +9,7 @@ export default function Projects() {
         {projects.map((project) => (
           <article
             key={project.name}
-            className="rounded-lg border border-border bg-surface p-6 transition-colors hover:border-accent/60"
+            className="rounded-lg border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/60 hover:shadow-[0_12px_30px_-14px_rgba(34,211,238,0.35)]"
           >
             <h3 className="text-lg font-medium">
               {project.href ? (
