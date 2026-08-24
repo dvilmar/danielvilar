@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { links } from "@/data/links";
 
 export default function Hero() {
@@ -16,6 +15,10 @@ export default function Hero() {
           herramientas de trading algorítmico, con foco en código correcto y
           mantenible.
         </p>
+        <div className="flex flex-wrap gap-2 text-xs text-muted">
+          <span className="glass rounded-full px-3 py-1">Sevilla, España</span>
+          <span className="glass rounded-full px-3 py-1">Java · Spring Boot · React</span>
+        </div>
         <div className="flex gap-4 pt-2 text-sm">
           <a
             href="#proyectos"
@@ -31,14 +34,14 @@ export default function Hero() {
           </a>
         </div>
       </div>
-      <Image
-        src="/avatar.png"
-        alt="Foto de perfil de Daniel Vilar Martínez"
-        width={128}
-        height={128}
-        priority
-        className="avatar-glow h-24 w-24 shrink-0 rounded-full border border-border sm:h-32 sm:w-32"
-      />
+      <div
+        aria-hidden="true"
+        className="avatar-glow flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-border bg-gradient-to-br from-surface to-background sm:h-32 sm:w-32"
+      >
+        <span className="font-display text-3xl font-semibold text-accent sm:text-4xl">
+          DV
+        </span>
+      </div>
     </section>
   );
 }

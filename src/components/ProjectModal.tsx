@@ -39,7 +39,7 @@ export default function ProjectModal({
         aria-modal="true"
         aria-labelledby="project-modal-title"
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-xl border border-border bg-surface p-6 shadow-2xl"
+        className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-xl border border-border bg-surface/95 p-6 shadow-2xl backdrop-blur-xl"
       >
         <div className="flex items-start justify-between gap-4">
           <h3 id="project-modal-title" className="font-display text-2xl font-semibold">
