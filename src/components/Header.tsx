@@ -16,8 +16,8 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-10 border-b border-border/60 bg-background/80 backdrop-blur">
-      <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
+    <header className="sticky top-4 z-10 px-4">
+      <div className="glass mx-auto flex max-w-3xl items-center justify-between rounded-2xl px-6 py-3 backdrop-blur">
         <Link href="#" className="font-display text-base font-semibold text-foreground">
           dvilmar
         </Link>
@@ -64,14 +64,14 @@ export default function Header() {
       {open && (
         <nav
           id="mobile-nav"
-          className="flex flex-col gap-1 border-t border-border/60 px-6 py-4 text-sm text-muted sm:hidden"
+          className="glass mx-auto mt-2 flex max-w-3xl flex-col gap-1 rounded-2xl px-6 py-4 text-sm text-muted sm:hidden"
         >
           {NAV_ITEMS.map((item) => (
             <a
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="rounded-md px-2 py-2 hover:bg-surface hover:text-foreground"
+              className="rounded-md px-2 py-2 hover:bg-background hover:text-foreground"
             >
               {item.label}
             </a>

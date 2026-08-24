@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --muted: #a1a1aa;
-  --border: #27272a;
-  --accent: #fbbf24;
-  --surface: #111113;
+  --background: #fafafa;
+  --foreground: #18181b;
+  --muted: #71717a;
+  --border: #e4e4e7;
+  --accent: #4f46e5;
+  --surface: #ffffff;
 }
 
 @theme inline {
@@ -18,60 +18,35 @@
   --color-surface: var(--surface);
   --font-sans: var(--font-manrope);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-manrope);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  position: relative;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(
-    circle at 50% -10%,
-    color-mix(in srgb, var(--accent) 16%, transparent),
-    transparent 55%
-  );
-  pointer-events: none;
-}
-
-/* Subtle film-grain texture for atmospheric depth (2026 portfolio trend:
-   "texture & atmospheric design"). Pure CSS/SVG, no image asset. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Glassmorphism surface used by cards/modals. */
+/* Soft white "card" surface: subtle border + shadow, the light SaaS
+   equivalent of the previous dark glassmorphism. Kept the .glass name so
+   every component that already references it (cards, modal, chips, hero
+   pills) picks up the new look with a single edit here. */
 .glass {
-  background: color-mix(in srgb, var(--foreground) 5%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04);
 }
 
-/* Full-bleed alternating section band, breaking the single-column rhythm. */
+/* Full-bleed alternating section band (background: white vs. --background)
+   to break the single-column rhythm without heavy borders. */
 .section-band {
-  background: color-mix(in srgb, var(--foreground) 2.5%, transparent);
+  background: var(--surface);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 
-/* Shared hover treatment for buttons/links: lift + glow tinted with --accent.
-   Centralized here so a future accent color change doesn't require editing
-   every component's arbitrary shadow value. */
+/* Shared hover treatment: lift + soft shadow with a hint of --accent.
+   Centralized so a future accent color change only touches this file. */
 .hover-lift {
   transition:
     transform 300ms ease-out,
@@ -82,11 +57,24 @@ body::after {
 }
 .hover-lift:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow:
+    0 12px 24px -12px color-mix(in srgb, var(--accent) 30%, transparent),
+    0 4px 12px -4px rgba(24, 24, 27, 0.1);
 }
 
 .avatar-glow {
   box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent),
-    0 0 50px -12px color-mix(in srgb, var(--accent) 45%, transparent);
+    0 0 0 1px color-mix(in srgb, var(--accent) 15%, transparent),
+    0 20px 45px -15px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+/* Primary CTA: solid accent with a subtle gradient, as opposed to the flat
+   dark buttons used everywhere else. */
+.btn-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    color-mix(in srgb, var(--accent) 75%, #1e1b4b)
+  );
+  color: white;
 }

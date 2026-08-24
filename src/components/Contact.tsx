@@ -12,7 +12,7 @@ export default function Contact() {
       <div className="mt-6 flex flex-wrap gap-4 text-sm">
         <a
           href={links.email}
-          className="hover-lift rounded-full bg-foreground px-5 py-2.5 font-medium text-background hover:bg-accent"
+          className="btn-gradient hover-lift rounded-full px-5 py-2.5 font-medium"
         >
           Enviar email
         </a>

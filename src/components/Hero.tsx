@@ -22,7 +22,7 @@ export default function Hero() {
         <div className="flex gap-4 pt-2 text-sm">
           <a
             href="#proyectos"
-            className="hover-lift rounded-full bg-foreground px-5 py-2.5 font-medium text-background hover:bg-accent"
+            className="btn-gradient hover-lift rounded-full px-5 py-2.5 font-medium"
           >
             Ver proyectos
           </a>
@@ -36,9 +36,9 @@ export default function Hero() {
       </div>
       <div
         aria-hidden="true"
-        className="avatar-glow flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-border bg-gradient-to-br from-surface to-background sm:h-32 sm:w-32"
+        className="avatar-glow btn-gradient flex h-24 w-24 shrink-0 items-center justify-center rounded-full sm:h-32 sm:w-32"
       >
-        <span className="font-display text-3xl font-semibold text-accent sm:text-4xl">
+        <span className="font-display text-3xl font-semibold text-white sm:text-4xl">
           DV
         </span>
       </div>

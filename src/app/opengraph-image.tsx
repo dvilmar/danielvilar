@@ -16,12 +16,12 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#0a0a0a",
-          color: "#ededed",
+          background: "#fafafa",
+          color: "#18181b",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ fontSize: 28, color: "#fbbf24", display: "flex" }}>
+        <div style={{ fontSize: 28, color: "#4f46e5", display: "flex" }}>
           dvilmar
         </div>
         <div
@@ -37,7 +37,7 @@ export default function Image() {
         <div
           style={{
             fontSize: 32,
-            color: "#a1a1aa",
+            color: "#71717a",
             marginTop: 24,
             display: "flex",
           }}
