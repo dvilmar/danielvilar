@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
@@ -26,29 +25,26 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
-      <Sidebar />
-      <div className="flex flex-1 flex-col lg:pl-80">
-        <Header />
-        <main id="contenido" className="flex-1">
-          <Hero />
-          <Reveal>
-            <About />
-          </Reveal>
-          <Reveal>
-            <Experience />
-          </Reveal>
-          <Reveal>
-            <Projects />
-          </Reveal>
-          <Reveal>
-            <Skills />
-          </Reveal>
-          <Reveal>
-            <Contact />
-          </Reveal>
-        </main>
-        <Footer />
-      </div>
+      <Header />
+      <main id="contenido" className="flex-1">
+        <Hero />
+        <Reveal>
+          <About />
+        </Reveal>
+        <Reveal>
+          <Experience />
+        </Reveal>
+        <Reveal>
+          <Projects />
+        </Reveal>
+        <Reveal>
+          <Skills />
+        </Reveal>
+        <Reveal>
+          <Contact />
+        </Reveal>
+      </main>
+      <Footer />
     </>
   );
 }

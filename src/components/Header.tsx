@@ -16,7 +16,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-4 z-10 px-4 lg:hidden">
+    <header className="sticky top-4 z-10 px-4">
       <div className="glass mx-auto flex max-w-3xl items-center justify-between rounded-2xl px-6 py-3 backdrop-blur">
         <Link href="#" className="font-display text-base font-semibold text-foreground">
           dvilmar
