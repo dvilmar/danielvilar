@@ -70,11 +70,11 @@ export default function ProjectModal({
             aria-modal="true"
             aria-labelledby="project-modal-title"
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-md rounded-xl border border-border bg-surface p-6 shadow-2xl"
-            initial={{ opacity: 0, scale: 0.92, y: 16 }}
+            className="max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-border bg-surface p-6 shadow-2xl sm:p-8"
+            initial={{ opacity: 0, scale: 0.97, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 8 }}
-            transition={{ type: "spring", stiffness: 380, damping: 28 }}
+            exit={{ opacity: 0, scale: 0.98, y: 4 }}
+            transition={{ type: "spring", stiffness: 500, damping: 32, mass: 0.7 }}
           >
             <div className="flex items-start justify-between gap-4">
               <h3 id="project-modal-title" className="font-display text-2xl font-semibold">
