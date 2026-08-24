@@ -73,7 +73,11 @@ export default function ProjectModal({
     <AnimatePresence>
       {project && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/40 p-4 backdrop-blur-sm"
+            // No backdrop-blur: animating opacity on a backdrop-filter
+            // element forces the browser to recompute the blur every frame
+            // instead of just compositing an opacity fade, which tanked
+            // this to ~33fps. A plain darker scrim is just as effective.
+            className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/55 p-4"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
