@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import { links } from "@/data/links";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
 
@@ -54,7 +53,7 @@ export default function Hero() {
             {t.viewProjects}
           </a>
           <a
-            href={links.email}
+            href="#contacto"
             className="hover-lift rounded-full border border-border px-5 py-2.5 font-medium hover:border-accent hover:text-accent"
           >
             {t.contact}
