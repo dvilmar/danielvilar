@@ -2,15 +2,15 @@ import { links } from "@/data/links";
 
 export default function Hero() {
   return (
-    <section className="mx-auto flex max-w-3xl flex-col-reverse items-start gap-8 px-6 pb-16 pt-20 sm:flex-row sm:items-center sm:justify-between">
+    <section className="mx-auto flex max-w-3xl flex-col-reverse items-start gap-8 px-6 pb-16 pt-12 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start lg:pt-24">
       <div className="flex flex-col gap-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent lg:hidden">
           Hola, soy
         </p>
-        <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl lg:hidden">
           Daniel Vilar Martínez
         </h1>
-        <p className="max-w-xl text-lg text-muted">
+        <p className="max-w-xl text-lg text-muted lg:text-2xl lg:leading-snug lg:text-foreground">
           Full Stack Developer. Construyo sistemas backend, dashboards y
           herramientas de trading algorítmico, con foco en código correcto y
           mantenible.
@@ -36,7 +36,7 @@ export default function Hero() {
       </div>
       <div
         aria-hidden="true"
-        className="avatar-glow btn-gradient flex h-24 w-24 shrink-0 items-center justify-center rounded-full sm:h-32 sm:w-32"
+        className="avatar-glow btn-gradient flex h-24 w-24 shrink-0 items-center justify-center rounded-full sm:h-32 sm:w-32 lg:hidden"
       >
         <span className="font-display text-3xl font-semibold text-white sm:text-4xl">
           DV
