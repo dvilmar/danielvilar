@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "@/data/projects";
 import { dict } from "@/data/i18n";
@@ -20,6 +21,13 @@ export default function ProjectModal({
   const dialogRef = useRef<HTMLDivElement>(null);
   const { lang } = useLanguage();
   const t = dict[lang].modal;
+  const [mounted, setMounted] = useState(false);
+
+  // Portal target (document.body) only exists client-side; this flips
+  // `mounted` once after hydration so the static-export build render
+  // never touches `document`.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!project) return;
@@ -53,17 +61,25 @@ export default function ProjectModal({
     };
   }, [project, onClose]);
 
-  return (
+  // Rendered via a portal so `fixed` positioning is always relative to the
+  // viewport — nesting this under a section wrapped by <Reveal> means an
+  // ancestor can carry a residual animated `transform`, which turns
+  // `position: fixed` into `position: relative`-to-that-ancestor instead.
+  // `mounted` guards the `document.body` access from the static-export
+  // build render, which happens in Node with no `document`.
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {project && (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/40 p-4 backdrop-blur-sm"
-          onClick={onClose}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-        >
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/40 p-4 backdrop-blur-sm"
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
           <motion.div
             ref={dialogRef}
             role="dialog"
@@ -72,9 +88,13 @@ export default function ProjectModal({
             onClick={(e) => e.stopPropagation()}
             className="max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-border bg-surface p-6 shadow-2xl sm:p-8"
             initial={{ opacity: 0, scale: 0.97, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.98, y: 4 }}
-            transition={{ type: "spring", stiffness: 500, damping: 32, mass: 0.7 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              transition: { type: "spring", stiffness: 500, damping: 32, mass: 0.7 },
+            }}
+            exit={{ opacity: 0, scale: 0.98, y: 4, transition: { duration: 0.15, ease: "easeOut" } }}
           >
             <div className="flex items-start justify-between gap-4">
               <h3 id="project-modal-title" className="font-display text-2xl font-semibold">
@@ -115,8 +135,9 @@ export default function ProjectModal({
               </a>
             )}
           </motion.div>
-        </motion.div>
+          </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }
