@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "@/data/projects";
+import { dict } from "@/data/i18n";
+import { useLanguage } from "@/lib/language-context";
 
 export default function ProjectModal({
   project,
@@ -12,6 +14,8 @@ export default function ProjectModal({
   onClose: () => void;
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const { lang } = useLanguage();
+  const t = dict[lang].modal;
 
   useEffect(() => {
     if (!project) return;
@@ -58,8 +62,8 @@ export default function ProjectModal({
                 ref={closeRef}
                 type="button"
                 onClick={onClose}
-                aria-label="Cerrar"
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border text-muted hover:border-accent hover:text-accent"
+                aria-label={t.close}
+                className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-md border border-border text-muted hover:border-accent hover:text-accent"
               >
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
@@ -85,7 +89,7 @@ export default function ProjectModal({
                 rel="noopener noreferrer"
                 className="hover-lift mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:border-accent hover:text-accent"
               >
-                Ver en GitHub
+                {t.viewOnGithub}
               </a>
             )}
           </motion.div>

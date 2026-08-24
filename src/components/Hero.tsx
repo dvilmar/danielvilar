@@ -2,6 +2,8 @@
 
 import { motion, type Variants } from "framer-motion";
 import { links } from "@/data/links";
+import { dict } from "@/data/i18n";
+import { useLanguage } from "@/lib/language-context";
 
 const container: Variants = {
   hidden: {},
@@ -14,6 +16,9 @@ const item: Variants = {
 };
 
 export default function Hero() {
+  const { lang } = useLanguage();
+  const t = dict[lang].hero;
+
   return (
     <section className="mx-auto flex max-w-3xl flex-col-reverse items-start gap-8 px-6 pb-16 pt-20 sm:flex-row sm:items-center sm:justify-between">
       <motion.div
@@ -26,7 +31,7 @@ export default function Hero() {
           variants={item}
           className="text-xs font-semibold uppercase tracking-[0.2em] text-accent"
         >
-          Hola, soy
+          {t.greeting}
         </motion.p>
         <motion.h1
           variants={item}
@@ -35,26 +40,24 @@ export default function Hero() {
           Daniel Vilar Martínez
         </motion.h1>
         <motion.p variants={item} className="max-w-xl text-lg text-muted">
-          Full Stack Developer. Construyo sistemas backend, dashboards y
-          herramientas de trading algorítmico, con foco en código correcto y
-          mantenible.
+          {t.tagline}
         </motion.p>
         <motion.div variants={item} className="flex flex-wrap gap-2 text-xs text-muted">
-          <span className="glass rounded-full px-3 py-1">Sevilla, España</span>
-          <span className="glass rounded-full px-3 py-1">Java · Spring Boot · React</span>
+          <span className="glass rounded-full px-3 py-1">{t.location}</span>
+          <span className="glass rounded-full px-3 py-1">{t.stack}</span>
         </motion.div>
         <motion.div variants={item} className="flex gap-4 pt-2 text-sm">
           <a
             href="#proyectos"
             className="btn-gradient hover-lift rounded-full px-5 py-2.5 font-medium"
           >
-            Ver proyectos
+            {t.viewProjects}
           </a>
           <a
             href={links.email}
             className="hover-lift rounded-full border border-border px-5 py-2.5 font-medium hover:border-accent hover:text-accent"
           >
-            Contactar
+            {t.contact}
           </a>
         </motion.div>
       </motion.div>

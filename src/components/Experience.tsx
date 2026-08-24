@@ -1,13 +1,20 @@
+"use client";
+
 import { experience } from "@/data/experience";
+import { dict } from "@/data/i18n";
+import { useLanguage } from "@/lib/language-context";
 import Eyebrow from "@/components/Eyebrow";
 
 export default function Experience() {
+  const { lang } = useLanguage();
+  const t = dict[lang];
+
   return (
     <section id="experiencia" className="section-band scroll-mt-20">
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <Eyebrow>02. Experiencia</Eyebrow>
+        <Eyebrow>{t.experience.eyebrow}</Eyebrow>
         <div className="flex flex-col gap-10 border-l border-border pl-6">
-          {experience.map((job) => (
+          {experience[lang].map((job) => (
             <div key={`${job.company}-${job.role}`} className="relative">
               <span className="absolute -left-[27px] top-1 h-2.5 w-2.5 rounded-full bg-accent" />
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">

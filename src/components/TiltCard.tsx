@@ -43,7 +43,7 @@ export default function TiltCard({
       whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className={className}
+      className={`cursor-pointer ${className}`}
     >
       {children}
     </motion.button>

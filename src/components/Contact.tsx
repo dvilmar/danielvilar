@@ -1,20 +1,24 @@
+"use client";
+
 import { links } from "@/data/links";
+import { dict } from "@/data/i18n";
+import { useLanguage } from "@/lib/language-context";
 import Eyebrow from "@/components/Eyebrow";
 
 export default function Contact() {
+  const { lang } = useLanguage();
+  const t = dict[lang].contact;
+
   return (
     <section id="contacto" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-      <Eyebrow>05. Contacto</Eyebrow>
-      <p className="max-w-xl text-muted">
-        ¿Quieres hablar de un proyecto o una oportunidad? Escríbeme, respondo
-        siempre.
-      </p>
+      <Eyebrow>{t.eyebrow}</Eyebrow>
+      <p className="max-w-xl text-muted">{t.intro}</p>
       <div className="mt-6 flex flex-wrap gap-4 text-sm">
         <a
           href={links.email}
           className="btn-gradient hover-lift rounded-full px-5 py-2.5 font-medium"
         >
-          Enviar email
+          {t.sendEmail}
         </a>
         <a
           href={links.linkedin}

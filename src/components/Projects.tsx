@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { projects, type Project } from "@/data/projects";
+import { projects } from "@/data/projects";
+import { dict } from "@/data/i18n";
+import { useLanguage } from "@/lib/language-context";
 import Eyebrow from "@/components/Eyebrow";
 import ProjectModal from "@/components/ProjectModal";
 import TiltCard from "@/components/TiltCard";
@@ -18,11 +20,14 @@ const item: Variants = {
 };
 
 export default function Projects() {
-  const [selected, setSelected] = useState<Project | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const { lang } = useLanguage();
+  const t = dict[lang];
+  const selected = selectedIndex !== null ? projects[lang][selectedIndex] : null;
 
   return (
     <section id="proyectos" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-      <Eyebrow>03. Proyectos</Eyebrow>
+      <Eyebrow>{t.projects.eyebrow}</Eyebrow>
       <motion.div
         className="grid grid-cols-1 gap-4 sm:grid-cols-2"
         variants={container}
@@ -30,23 +35,23 @@ export default function Projects() {
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
       >
-        {projects.map((project) => (
+        {projects[lang].map((project, index) => (
           <motion.div key={project.name} variants={item}>
             <TiltCard
-              onClick={() => setSelected(project)}
+              onClick={() => setSelectedIndex(index)}
               className="glass h-full w-full rounded-lg p-6 text-left"
             >
               <h3 className="text-lg font-medium">{project.name}</h3>
               <p className="mt-2 text-sm text-muted">{project.description}</p>
               <span className="mt-4 inline-block text-xs font-semibold uppercase tracking-widest text-accent">
-                Ver más →
+                {t.projects.viewMore}
               </span>
             </TiltCard>
           </motion.div>
         ))}
       </motion.div>
 
-      <ProjectModal project={selected} onClose={() => setSelected(null)} />
+      <ProjectModal project={selected} onClose={() => setSelectedIndex(null)} />
     </section>
   );
 }

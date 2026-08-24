@@ -2,15 +2,20 @@
 
 import { motion } from "framer-motion";
 import { skillGroups } from "@/data/skills";
+import { dict } from "@/data/i18n";
+import { useLanguage } from "@/lib/language-context";
 import Eyebrow from "@/components/Eyebrow";
 
 export default function Skills() {
+  const { lang } = useLanguage();
+  const t = dict[lang];
+
   return (
     <section id="skills" className="section-band scroll-mt-20">
       <div className="mx-auto max-w-3xl px-6 py-16">
-        <Eyebrow>04. Skills</Eyebrow>
+        <Eyebrow>{t.skills.eyebrow}</Eyebrow>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {skillGroups.map((group) => (
+          {skillGroups[lang].map((group) => (
             <div key={group.label}>
               <h3 className="mb-3 text-sm font-medium text-foreground">
                 {group.label}

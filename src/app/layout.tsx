@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Manrope } from "next/font/google";
 import { MotionConfig } from "framer-motion";
+import { LanguageProvider } from "@/lib/language-context";
+import SkipLink from "@/components/SkipLink";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -48,13 +50,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <a
-          href="#contenido"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-20 focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2 focus:text-background"
-        >
-          Saltar al contenido
-        </a>
-        <MotionConfig reducedMotion="user">{children}</MotionConfig>
+        <LanguageProvider>
+          <SkipLink />
+          <MotionConfig reducedMotion="user">{children}</MotionConfig>
+        </LanguageProvider>
       </body>
     </html>
   );
