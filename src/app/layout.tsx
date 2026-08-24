@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Manrope } from "next/font/google";
 import { MotionConfig } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
 import { LanguageProvider } from "@/lib/language-context";
 import SkipLink from "@/components/SkipLink";
 import "./globals.css";
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <SkipLink />
           <MotionConfig reducedMotion="user">{children}</MotionConfig>
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
