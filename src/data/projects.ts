@@ -2,7 +2,6 @@ export type Project = {
   name: string;
   description: string;
   highlights: string[];
-  stack: string[];
   href?: string;
 };
 
@@ -17,7 +16,6 @@ export const projects: Project[] = [
       "~19 fuentes de retorno investigadas con criterios estadísticos estrictos",
       "Estrategia de reversión a VWAP en paper trading sobre Alpaca",
     ],
-    stack: ["Python", "Binance API", "Alpaca API", "Backtesting"],
   },
   {
     name: "Tavero",
@@ -29,7 +27,6 @@ export const projects: Project[] = [
       "Actualizaciones OTA en producción vía EAS, sin pasar por las tiendas",
       "Gestión de menús y fotos de platos para el restaurante",
     ],
-    stack: ["Expo", "React Native", "Supabase", "Next.js"],
   },
   {
     name: "Proyecto Final CFGS DAW",
@@ -39,7 +36,6 @@ export const projects: Project[] = [
       "Proyecto final del ciclo, IES Alixar (Castilleja de la Cuesta - Sevilla)",
       "Desarrollo web completo, de diseño a despliegue",
     ],
-    stack: ["Desarrollo web"],
     href: "https://github.com/dvilmar/dvilmar-proyecto-final",
   },
 ];

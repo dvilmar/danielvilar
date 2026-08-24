@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { skillGroups } from "@/data/skills";
 import Eyebrow from "@/components/Eyebrow";
 
@@ -14,12 +17,14 @@ export default function Skills() {
               </h3>
               <ul className="flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <li
+                  <motion.li
                     key={item}
+                    whileHover={{ scale: 1.08, y: -2 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted transition-colors hover:border-accent/50 hover:text-foreground"
                   >
                     {item}
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </div>

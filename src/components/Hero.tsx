@@ -1,25 +1,49 @@
+"use client";
+
+import { motion, type Variants } from "framer-motion";
 import { links } from "@/data/links";
+
+const container: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+};
 
 export default function Hero() {
   return (
     <section className="mx-auto flex max-w-3xl flex-col-reverse items-start gap-8 px-6 pb-16 pt-20 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex flex-col gap-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+      <motion.div
+        className="flex flex-col gap-6"
+        variants={container}
+        initial="hidden"
+        animate="show"
+      >
+        <motion.p
+          variants={item}
+          className="text-xs font-semibold uppercase tracking-[0.2em] text-accent"
+        >
           Hola, soy
-        </p>
-        <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        </motion.p>
+        <motion.h1
+          variants={item}
+          className="font-display text-4xl font-semibold tracking-tight sm:text-5xl"
+        >
           Daniel Vilar Martínez
-        </h1>
-        <p className="max-w-xl text-lg text-muted">
+        </motion.h1>
+        <motion.p variants={item} className="max-w-xl text-lg text-muted">
           Full Stack Developer. Construyo sistemas backend, dashboards y
           herramientas de trading algorítmico, con foco en código correcto y
           mantenible.
-        </p>
-        <div className="flex flex-wrap gap-2 text-xs text-muted">
+        </motion.p>
+        <motion.div variants={item} className="flex flex-wrap gap-2 text-xs text-muted">
           <span className="glass rounded-full px-3 py-1">Sevilla, España</span>
           <span className="glass rounded-full px-3 py-1">Java · Spring Boot · React</span>
-        </div>
-        <div className="flex gap-4 pt-2 text-sm">
+        </motion.div>
+        <motion.div variants={item} className="flex gap-4 pt-2 text-sm">
           <a
             href="#proyectos"
             className="btn-gradient hover-lift rounded-full px-5 py-2.5 font-medium"
@@ -32,16 +56,19 @@ export default function Hero() {
           >
             Contactar
           </a>
-        </div>
-      </div>
-      <div
+        </motion.div>
+      </motion.div>
+      <motion.div
         aria-hidden="true"
+        initial={{ opacity: 0, scale: 0.7, rotate: -8 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 200, damping: 16, delay: 0.1 }}
         className="avatar-glow btn-gradient flex h-24 w-24 shrink-0 items-center justify-center rounded-full sm:h-32 sm:w-32"
       >
         <span className="font-display text-3xl font-semibold text-white sm:text-4xl">
           DV
         </span>
-      </div>
+      </motion.div>
     </section>
   );
 }
