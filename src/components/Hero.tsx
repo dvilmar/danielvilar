@@ -1,22 +1,35 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
-
-const container: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
 
 export default function Hero() {
   const { lang } = useLanguage();
   const t = dict[lang].hero;
+  // MotionConfig's reducedMotion="user" initializes its media-query listener
+  // in an effect, which loses a race against animations that start on mount
+  // (like this one) — useReducedMotion() reads it synchronously instead, so
+  // it's correct on the very first render.
+  const shouldReduceMotion = useReducedMotion();
+
+  const container: Variants = {
+    hidden: {},
+    show: {
+      transition: shouldReduceMotion
+        ? {}
+        : { staggerChildren: 0.12, delayChildren: 0.1 },
+    },
+  };
+
+  const item: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" },
+    },
+  };
 
   return (
     <section className="mx-auto flex max-w-3xl flex-col-reverse items-start gap-8 px-6 pb-16 pt-20 sm:flex-row sm:items-center sm:justify-between">
@@ -62,9 +75,13 @@ export default function Hero() {
       </motion.div>
       <motion.div
         aria-hidden="true"
-        initial={{ opacity: 0, scale: 0.7, rotate: -8 }}
+        initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.7, rotate: shouldReduceMotion ? 0 : -8 }}
         animate={{ opacity: 1, scale: 1, rotate: 0 }}
-        transition={{ type: "spring", stiffness: 200, damping: 16, delay: 0.1 }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : { type: "spring", stiffness: 200, damping: 16, delay: 0.1 }
+        }
         className="avatar-glow btn-gradient flex h-24 w-24 shrink-0 items-center justify-center rounded-full sm:h-32 sm:w-32"
       >
         <span className="font-display text-3xl font-semibold text-white sm:text-4xl">

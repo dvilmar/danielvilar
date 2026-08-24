@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { projects } from "@/data/projects";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
@@ -9,20 +9,25 @@ import Eyebrow from "@/components/Eyebrow";
 import ProjectModal from "@/components/ProjectModal";
 import TiltCard from "@/components/TiltCard";
 
-const container: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
-
 export default function Projects() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const { lang } = useLanguage();
   const t = dict[lang];
+  const shouldReduceMotion = useReducedMotion();
+
+  const container: Variants = {
+    hidden: {},
+    show: { transition: shouldReduceMotion ? {} : { staggerChildren: 0.1 } },
+  };
+
+  const item: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" },
+    },
+  };
   const selected = selectedIndex !== null ? projects[lang][selectedIndex] : null;
 
   return (

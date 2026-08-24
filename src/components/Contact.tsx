@@ -36,12 +36,6 @@ export default function Contact() {
         >
           GitHub
         </a>
-        <a
-          href={links.phone}
-          className="hover-lift rounded-full border border-border px-5 py-2.5 font-medium hover:border-accent hover:text-accent"
-        >
-          +34 640 364 763
-        </a>
       </div>
     </section>
   );
