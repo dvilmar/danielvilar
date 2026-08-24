@@ -21,7 +21,7 @@ export default function Image() {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ fontSize: 28, color: "#22d3ee", display: "flex" }}>
+        <div style={{ fontSize: 28, color: "#fbbf24", display: "flex" }}>
           dvilmar
         </div>
         <div

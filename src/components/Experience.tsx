@@ -5,11 +5,12 @@ export default function Experience() {
   return (
     <section id="experiencia" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
       <Eyebrow>02. Experiencia</Eyebrow>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-10 border-l border-border pl-6">
         {experience.map((job) => (
-          <div key={`${job.company}-${job.role}`}>
+          <div key={`${job.company}-${job.role}`} className="relative">
+            <span className="absolute -left-[27px] top-1 h-2.5 w-2.5 rounded-full bg-accent" />
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h3 className="text-lg font-medium">
+              <h3 className="font-display text-lg font-semibold">
                 {job.role} <span className="text-muted">· {job.company}</span>
               </h3>
               <span className="font-mono text-xs text-muted">{job.period}</span>

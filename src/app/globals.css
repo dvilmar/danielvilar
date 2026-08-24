@@ -5,7 +5,7 @@
   --foreground: #ededed;
   --muted: #a1a1aa;
   --border: #27272a;
-  --accent: #22d3ee;
+  --accent: #fbbf24;
   --surface: #111113;
 }
 
@@ -16,9 +16,9 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-surface: var(--surface);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-manrope);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-space-grotesk);
+  --font-display: var(--font-fraunces);
 }
 
 body {
@@ -35,8 +35,30 @@ body::before {
   z-index: -1;
   background: radial-gradient(
     circle at 50% -10%,
-    rgba(34, 211, 238, 0.14),
+    color-mix(in srgb, var(--accent) 16%, transparent),
     transparent 55%
   );
   pointer-events: none;
+}
+
+/* Shared hover treatment for buttons/links: lift + glow tinted with --accent.
+   Centralized here so a future accent color change doesn't require editing
+   every component's arbitrary shadow value. */
+.hover-lift {
+  transition:
+    transform 300ms ease-out,
+    box-shadow 300ms ease-out,
+    border-color 300ms ease-out,
+    background-color 300ms ease-out,
+    color 300ms ease-out;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.avatar-glow {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent),
+    0 0 50px -12px color-mix(in srgb, var(--accent) 45%, transparent);
 }
