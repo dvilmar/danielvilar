@@ -12,12 +12,15 @@ export default function About() {
   const { variant } = useDesignVariant();
 
   return (
-    // Option 1 (variant "a"): stays transparent so the extended aurora
-    // fill behind it (see AuroraBackground) shows through, seamless with
-    // Hero above. Option 2 (variant "b"): normal opaque white section.
+    // flex-1: stretches to fill whatever's left of the viewport below
+    // Hero (see HeroAboutGroup), so the background below reaches all the
+    // way down with no gap regardless of content length. Option 1
+    // (variant "a"): stays transparent so the extended aurora fill behind
+    // it (see AuroraBackground) shows through, seamless with Hero above.
+    // Option 2 (variant "b"): normal opaque white section.
     <section
       id="sobre-mi"
-      className={variant === "a" ? "scroll-mt-20" : "tone-white scroll-mt-20"}
+      className={`flex flex-1 flex-col justify-center scroll-mt-20 ${variant === "a" ? "" : "tone-white"}`}
     >
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>{t.eyebrow}</Eyebrow>

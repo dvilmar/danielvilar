@@ -14,19 +14,23 @@ export default function AuroraBackground() {
   // min-h-screen makes #hero-about-group *at least* one viewport tall, but
   // its content can still push it taller on short viewports — a fixed
   // "100vh" guess left a gap between where the fill stopped and where
-  // About's text actually ended, so the bottom of About rendered on plain
-  // white instead of gray. Measuring the real element instead tracks that
-  // exactly, and stays correct across resizes/content changes.
+  // About's text actually ended. Measuring the group's own height wasn't
+  // enough either: this container starts at document y=0, but the group
+  // starts below the header (Header is a normal-flow sibling before
+  // <main>), so using just contentRect.height left the *last* ~header's
+  // worth of pixels uncovered — exactly where About ends. Using the
+  // group's document-relative bottom edge (rect.bottom + scrollY) instead
+  // accounts for that offset automatically.
   const [heroAboutHeight, setHeroAboutHeight] = useState<number>(0);
 
   useEffect(() => {
     if (variant !== "a") return;
     const el = document.getElementById("hero-about-group");
     if (!el) return;
-    const observer = new ResizeObserver((entries) => {
-      setHeroAboutHeight(entries[0].contentRect.height);
-    });
+    const measure = () => setHeroAboutHeight(el.getBoundingClientRect().bottom + window.scrollY);
+    const observer = new ResizeObserver(measure);
     observer.observe(el);
+    measure();
     return () => observer.disconnect();
   }, [variant]);
 
