@@ -66,20 +66,25 @@ export default function Hero() {
     >
       <div
         aria-hidden="true"
-        className="aurora-blob aurora-blob-a -left-24 -top-24 h-72 w-72"
-        style={{ background: "color-mix(in srgb, var(--accent) 20%, transparent)" }}
+        // Kept fully inside the section (no negative offsets) so the blur
+        // fades to nothing before it would otherwise get hard-clipped by
+        // overflow-hidden at the section edge — that clip was reading as a
+        // square corner. Opacity dropped a lot too: this should read as a
+        // faint ambient tint, not a visible colored shape.
+        className="aurora-blob aurora-blob-a left-4 top-4 h-56 w-56"
+        style={{ background: "color-mix(in srgb, var(--accent) 6%, transparent)" }}
       />
       <div
         aria-hidden="true"
-        className="aurora-blob aurora-blob-b -bottom-32 -right-16 h-80 w-80"
-        style={{ background: "color-mix(in srgb, var(--accent) 14%, transparent)" }}
+        className="aurora-blob aurora-blob-b bottom-4 right-4 h-64 w-64"
+        style={{ background: "color-mix(in srgb, var(--accent) 5%, transparent)" }}
       />
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute h-[420px] w-[420px] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent) 0%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--accent) 7%, transparent) 0%, transparent 70%)",
           left: springX,
           top: springY,
           translateX: "-50%",
