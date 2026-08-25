@@ -24,6 +24,7 @@
   --font-sans: var(--font-manrope);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-manrope);
+  --font-serif: var(--font-fraunces);
 }
 
 body {

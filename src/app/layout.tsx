@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Manrope } from "next/font/google";
+import { Fraunces, Geist_Mono, Manrope } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
 import { LanguageProvider } from "@/lib/language-context";
@@ -15,6 +15,15 @@ const manrope = Manrope({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Elegant italic serif for small editorial touches (currently just dates
+// in Experience) — a deliberate contrast against the Manrope body text.
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["italic"],
+  weight: ["500"],
 });
 
 const SITE_URL = "https://dvilmar.vercel.app";
@@ -49,7 +58,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="es"
-      className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <ScrollProgress />

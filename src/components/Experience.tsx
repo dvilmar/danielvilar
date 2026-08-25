@@ -64,7 +64,7 @@ export default function Experience() {
                   <h3 className="font-display text-lg font-semibold">
                     {job.role} <span className="text-muted">· {job.company}</span>
                   </h3>
-                  <span className="font-mono text-xs text-muted">{job.period}</span>
+                  <span className="font-serif text-sm italic text-muted">{job.period}</span>
                 </div>
                 <p className="mt-1 text-sm text-muted">{job.location}</p>
                 <ul className="mt-3 flex flex-col gap-2 text-sm text-muted">
