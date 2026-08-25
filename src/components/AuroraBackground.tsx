@@ -1,17 +1,37 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useDesignVariant } from "@/lib/design-variant-context";
 
-// Approximate: enough to cover Hero alone (option 2), or Hero + About
-// (option 1) — see design-variant-context.tsx for what these map to.
+// Enough to cover Hero alone (option 2). Option 1 (Hero + About) measures
+// the real thing instead of guessing a height.
 const HEIGHT_HERO_ONLY = 640;
-const HEIGHT_HERO_AND_ABOUT = 960;
 
 export default function AuroraBackground() {
   const { variant } = useDesignVariant();
-  const height = variant === "a" ? HEIGHT_HERO_AND_ABOUT : HEIGHT_HERO_ONLY;
+
+  // min-h-screen makes #hero-about-group *at least* one viewport tall, but
+  // its content can still push it taller on short viewports — a fixed
+  // "100vh" guess left a gap between where the fill stopped and where
+  // About's text actually ended, so the bottom of About rendered on plain
+  // white instead of gray. Measuring the real element instead tracks that
+  // exactly, and stays correct across resizes/content changes.
+  const [heroAboutHeight, setHeroAboutHeight] = useState<number>(0);
+
+  useEffect(() => {
+    if (variant !== "a") return;
+    const el = document.getElementById("hero-about-group");
+    if (!el) return;
+    const observer = new ResizeObserver((entries) => {
+      setHeroAboutHeight(entries[0].contentRect.height);
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [variant]);
+
+  const height =
+    variant === "a" ? heroAboutHeight || "100vh" : HEIGHT_HERO_ONLY;
   // Tracked with page-relative coordinates (already scroll-adjusted) via a
   // window-level listener, not a rect scoped to Hero — Hero starts below
   // the header and clips at its own top edge, which was cutting the glow
