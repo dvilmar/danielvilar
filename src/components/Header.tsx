@@ -24,42 +24,39 @@ export default function Header() {
   ];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActiveId(entry.target.id);
-        }
-      },
-      { rootMargin: "-96px 0px -55% 0px", threshold: 0 },
-    );
     const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
       (el): el is HTMLElement => el !== null,
     );
-    elements.forEach((el) => observer.observe(el));
 
-    // The rootMargin above shrinks the detection band so much that a short
-    // trailing section (Contact) may never have enough scroll room left to
-    // cross it — it can get stuck showing the previous section as active
-    // all the way to the bottom of the page. Force the last section active
-    // once the user is close to the bottom. A short trailing section plus
-    // footer rarely leaves more than ~100-150px of scroll room below the
-    // point where that section fills the view, so a fixed 200px threshold
-    // covers that gap without ever misfiring while still on the section
-    // before it (which is taller than that by design).
+    // A percentage-based IntersectionObserver band flips to the next
+    // section as soon as its top crosses into the upper half of the
+    // viewport — well before that section actually fills the screen. Pick
+    // instead the last section whose heading has scrolled up to just below
+    // the sticky header: the same rule readers intuitively use ("what am I
+    // looking at right now"), and it naturally handles adjacent sections
+    // with no gaps between them.
+    const ANCHOR_OFFSET = 100;
     let rafId = 0;
     const onScroll = () => {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
-        const nearBottom =
-          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
-        if (nearBottom) setActiveId(SECTION_IDS[SECTION_IDS.length - 1]);
+        const atBottom =
+          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+        if (atBottom) {
+          setActiveId(SECTION_IDS[SECTION_IDS.length - 1]);
+          return;
+        }
+        let current = elements[0]?.id ?? SECTION_IDS[0];
+        for (const el of elements) {
+          if (el.getBoundingClientRect().top <= ANCHOR_OFFSET) current = el.id;
+        }
+        setActiveId(current);
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
     return () => {
-      observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(rafId);
     };
