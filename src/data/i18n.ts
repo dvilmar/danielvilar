@@ -1,5 +1,7 @@
 export const dict = {
   es: {
+    metaDescription:
+      "Portfolio personal de Daniel Vilar Martínez — Full Stack Developer y trading algorítmico.",
     skipToContent: "Saltar al contenido",
     nav: {
       about: "Sobre mí",
@@ -53,6 +55,8 @@ export const dict = {
     },
   },
   en: {
+    metaDescription:
+      "Personal portfolio of Daniel Vilar Martínez — Full Stack Developer and algorithmic trading.",
     skipToContent: "Skip to content",
     nav: {
       about: "About",

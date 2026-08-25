@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { dict } from "@/data/i18n";
 
 export type Lang = "es" | "en";
 
@@ -27,6 +28,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = lang;
     window.localStorage.setItem(STORAGE_KEY, lang);
+    // The static export bakes a fixed (Spanish) <meta name="description">
+    // into the HTML — crawlers and link-preview bots read that snapshot
+    // before any JS runs, so this can't change what they see. It does keep
+    // the live page's own DOM correct for anyone who toggles language and
+    // then inspects it, which is the part that's actually fixable here.
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", dict[lang].metaDescription);
   }, [lang]);
 
   return (
