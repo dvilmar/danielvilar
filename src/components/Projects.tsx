@@ -40,8 +40,13 @@ export default function Projects() {
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
       >
+        {/* Keyed by index, not project.name: the name is translated
+            per-language, so a text-based key would remount this card on
+            language switch — and since the parent's whileInView trigger is
+            viewport={{ once: true }}, a freshly-mounted card never gets the
+            signal to animate in and stays stuck at opacity 0. */}
         {projects[lang].map((project, index) => (
-          <motion.div key={project.name} variants={item}>
+          <motion.div key={index} variants={item}>
             <TiltCard
               onClick={() => setSelectedIndex(index)}
               className="glass h-full w-full rounded-lg p-6 text-left"

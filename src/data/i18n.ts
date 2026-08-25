@@ -39,6 +39,7 @@ export const dict = {
       eyebrow: "05. Contacto",
       intro: "¿Quieres hablar de un proyecto o una oportunidad? Escríbeme, respondo siempre.",
       sendEmail: "Enviar email",
+      copied: "Email copiado al portapapeles",
     },
     modal: {
       viewOnGithub: "Ver en GitHub",
@@ -91,6 +92,7 @@ export const dict = {
       eyebrow: "05. Contact",
       intro: "Want to talk about a project or an opportunity? Reach out, I always reply.",
       sendEmail: "Send email",
+      copied: "Email copied to clipboard",
     },
     modal: {
       viewOnGithub: "View on GitHub",

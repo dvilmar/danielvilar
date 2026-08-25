@@ -45,8 +45,14 @@ export default function Experience() {
             whileInView="show"
             viewport={{ once: true, amount: 0.15 }}
           >
-            {experience[lang].map((job) => (
-              <motion.div key={`${job.company}-${job.role}`} variants={item} className="relative">
+            {/* Keyed by index, not role/company: `role` is translated per
+                language (e.g. "Prácticas" vs "Internship"), so a text-based
+                key would remount this entry on language switch — and since
+                the parent's whileInView trigger is viewport={{ once: true }},
+                a freshly-mounted entry never gets the signal to animate in
+                and stays stuck at opacity 0 until a full reload. */}
+            {experience[lang].map((job, index) => (
+              <motion.div key={index} variants={item} className="relative">
                 <motion.span
                   className="absolute -left-[27px] top-1 h-2.5 w-2.5 rounded-full bg-accent"
                   initial={{ scale: shouldReduceMotion ? 1 : 0 }}

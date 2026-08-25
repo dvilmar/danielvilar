@@ -36,7 +36,33 @@ export default function Header() {
       (el): el is HTMLElement => el !== null,
     );
     elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+
+    // The rootMargin above shrinks the detection band so much that a short
+    // trailing section (Contact) may never have enough scroll room left to
+    // cross it — it can get stuck showing the previous section as active
+    // all the way to the bottom of the page. Force the last section active
+    // once the user is close to the bottom. A short trailing section plus
+    // footer rarely leaves more than ~100-150px of scroll room below the
+    // point where that section fills the view, so a fixed 200px threshold
+    // covers that gap without ever misfiring while still on the section
+    // before it (which is taller than that by design).
+    let rafId = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const nearBottom =
+          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
+        if (nearBottom) setActiveId(SECTION_IDS[SECTION_IDS.length - 1]);
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
