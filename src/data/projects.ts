@@ -17,6 +17,7 @@ export const projects: Record<"es" | "en", Project[]> = {
         "~19 fuentes de retorno investigadas con criterios estadísticos estrictos",
         "Estrategia de reversión a VWAP en paper trading sobre Alpaca",
       ],
+      href: "https://github.com/dvilmar/qx-core-demo",
     },
     {
       name: "Tavero",
@@ -51,6 +52,7 @@ export const projects: Record<"es" | "en", Project[]> = {
         "~19 return sources researched with strict statistical criteria",
         "VWAP reversion strategy in paper trading on Alpaca",
       ],
+      href: "https://github.com/dvilmar/qx-core-demo",
     },
     {
       name: "Tavero",
