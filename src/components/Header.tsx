@@ -28,29 +28,33 @@ export default function Header() {
       (el): el is HTMLElement => el !== null,
     );
 
-    // A percentage-based IntersectionObserver band flips to the next
-    // section as soon as its top crosses into the upper half of the
-    // viewport — well before that section actually fills the screen. Pick
-    // instead the last section whose heading has scrolled up to just below
-    // the sticky header: the same rule readers intuitively use ("what am I
-    // looking at right now"), and it naturally handles adjacent sections
-    // with no gaps between them.
-    const ANCHOR_OFFSET = 100;
+    // A fixed "top crossed this line" anchor and "largest visible area"
+    // both fail on a tall enough viewport: the short trailing sections
+    // (Skills, Contact) plus the footer can fit on screen together with
+    // room to spare, so there's never enough scroll room to bring each
+    // one's heading up to a fixed line individually, and raw visible area
+    // always favors whichever section is tallest, even when a shorter one
+    // is more clearly "what's on screen". Picking whichever section's
+    // midpoint is nearest the viewport's own midpoint hands off cleanly
+    // between adjacent sections regardless of their height or the
+    // viewport's, since it's a single continuous quantity rather than a
+    // threshold that can be skipped over.
     let rafId = 0;
     const onScroll = () => {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
-        const atBottom =
-          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
-        if (atBottom) {
-          setActiveId(SECTION_IDS[SECTION_IDS.length - 1]);
-          return;
-        }
-        let current = elements[0]?.id ?? SECTION_IDS[0];
+        const viewportCenter = window.innerHeight / 2;
+        let bestId = elements[0]?.id ?? SECTION_IDS[0];
+        let bestDistance = Infinity;
         for (const el of elements) {
-          if (el.getBoundingClientRect().top <= ANCHOR_OFFSET) current = el.id;
+          const rect = el.getBoundingClientRect();
+          const distance = Math.abs((rect.top + rect.bottom) / 2 - viewportCenter);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            bestId = el.id;
+          }
         }
-        setActiveId(current);
+        setActiveId(bestId);
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
