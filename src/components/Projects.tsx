@@ -34,7 +34,7 @@ export default function Projects() {
     <section id="proyectos" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
       <Eyebrow>{t.projects.eyebrow}</Eyebrow>
       <motion.div
-        className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+        className="grid grid-cols-1 gap-8"
         variants={container}
         initial="hidden"
         whileInView="show"
@@ -49,7 +49,7 @@ export default function Projects() {
           <motion.div key={index} variants={item}>
             <TiltCard
               onClick={() => setSelectedIndex(index)}
-              className="glass h-full w-full rounded-lg p-6 text-left"
+              className="glass h-full w-full rounded-lg p-6 text-left sm:p-8"
             >
               <h3 className="text-lg font-medium">{project.name}</h3>
               <p className="mt-2 text-sm text-muted">{project.description}</p>

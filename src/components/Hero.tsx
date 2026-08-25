@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-  type Variants,
-} from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "framer-motion";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
 
@@ -26,20 +18,6 @@ export default function Hero() {
   // in lockstep with the text next to it.
   const { scrollY } = useScroll();
   const avatarY = useTransform(scrollY, [0, 600], [0, shouldReduceMotion ? 0 : -60]);
-
-  // Cursor spotlight: a soft glow that trails the mouse inside the Hero.
-  // Pure background/transform, no filter is animated per-frame, so it's
-  // as cheap as the aurora blobs below.
-  const spotlightX = useMotionValue(400);
-  const spotlightY = useMotionValue(150);
-  const springX = useSpring(spotlightX, { stiffness: 150, damping: 20 });
-  const springY = useSpring(spotlightY, { stiffness: 150, damping: 20 });
-
-  function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    spotlightX.set(e.clientX - rect.left);
-    spotlightY.set(e.clientY - rect.top);
-  }
 
   const container: Variants = {
     hidden: {},
@@ -60,24 +38,12 @@ export default function Hero() {
   };
 
   return (
-    // The aurora blobs live in <AuroraBackground>, rendered as an
-    // independent sibling before <Header> — wrapping Header in any
-    // overflow-hidden ancestor here would break its sticky positioning,
-    // and that background needs to extend behind the header too. Only the
-    // cursor spotlight (scoped to this section specifically) stays here.
-    <section onMouseMove={handleMouseMove} className="relative overflow-hidden">
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute h-[420px] w-[420px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, color-mix(in srgb, var(--accent) 9%, transparent) 0%, transparent 70%)",
-          left: springX,
-          top: springY,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-      />
+    // The aurora blobs and cursor spotlight live in <AuroraBackground>,
+    // rendered as an independent sibling before <Header> — wrapping
+    // Header in any overflow-hidden ancestor here would break its sticky
+    // positioning, and that background needs to extend behind the header
+    // too (which this section, starting below the header, can't do).
+    <section>
       <div className="mx-auto flex max-w-3xl flex-col-reverse items-start gap-8 px-6 pb-16 pt-20 sm:flex-row sm:items-center sm:justify-between">
         <motion.div
           className="flex flex-col gap-6"

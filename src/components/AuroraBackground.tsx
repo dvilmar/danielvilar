@@ -1,9 +1,29 @@
-// Plain server component (no interactivity) so it can sit as an
-// independent sibling of <Header> rather than an ancestor — wrapping the
-// sticky header in any overflow-hidden container would break its
-// stickiness, so this owns its own contained box instead, tall enough to
-// cover both the header and the Hero below it.
+"use client";
+
+import { useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+
 export default function AuroraBackground() {
+  // Tracked with page-relative coordinates (already scroll-adjusted) via a
+  // window-level listener, not a rect scoped to Hero — Hero starts below
+  // the header and clips at its own top edge, which was cutting the glow
+  // off right where the header sits. This container starts at document
+  // (0,0), so pageX/pageY map onto it directly with no extra math, and
+  // naturally disappears once you scroll past it thanks to overflow-hidden.
+  const spotlightX = useMotionValue(400);
+  const spotlightY = useMotionValue(150);
+  const springX = useSpring(spotlightX, { stiffness: 150, damping: 20 });
+  const springY = useSpring(spotlightY, { stiffness: 150, damping: 20 });
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      spotlightX.set(e.pageX);
+      spotlightY.set(e.pageY);
+    };
+    window.addEventListener("mousemove", onMouseMove);
+    return () => window.removeEventListener("mousemove", onMouseMove);
+  }, [spotlightX, spotlightY]);
+
   return (
     <div
       aria-hidden="true"
@@ -30,6 +50,17 @@ export default function AuroraBackground() {
       <div
         className="aurora-blob aurora-blob-b bottom-8 right-[8%] h-64 w-64"
         style={{ background: "color-mix(in srgb, var(--accent) 8%, transparent)" }}
+      />
+      <motion.div
+        className="absolute h-[420px] w-[420px] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, color-mix(in srgb, var(--accent) 9%, transparent) 0%, transparent 70%)",
+          left: springX,
+          top: springY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
       />
     </div>
   );
