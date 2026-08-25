@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "framer-motion";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
 
@@ -12,6 +12,12 @@ export default function Hero() {
   // (like this one) — useReducedMotion() reads it synchronously instead, so
   // it's correct on the very first render.
   const shouldReduceMotion = useReducedMotion();
+
+  // Subtle parallax: the avatar drifts up slightly slower than the page
+  // scrolls, so it feels like it has its own depth instead of scrolling
+  // in lockstep with the text next to it.
+  const { scrollY } = useScroll();
+  const avatarY = useTransform(scrollY, [0, 600], [0, shouldReduceMotion ? 0 : -60]);
 
   const container: Variants = {
     hidden: {},
@@ -82,6 +88,7 @@ export default function Hero() {
             ? { duration: 0 }
             : { type: "spring", stiffness: 200, damping: 16, delay: 0.1 }
         }
+        style={{ y: avatarY }}
         className="avatar-glow btn-gradient flex h-24 w-24 shrink-0 items-center justify-center rounded-full sm:h-32 sm:w-32"
       >
         <span className="font-display text-3xl font-semibold text-white sm:text-4xl">
