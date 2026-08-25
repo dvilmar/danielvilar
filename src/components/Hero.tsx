@@ -60,32 +60,18 @@ export default function Hero() {
   };
 
   return (
-    // Full-width so the aurora/spotlight background spans the whole
-    // viewport instead of being boxed into the same max-w-3xl column as
-    // the text — the content itself stays centered in the inner wrapper.
+    // The aurora blobs live in <AuroraBackground>, rendered as an
+    // independent sibling before <Header> — wrapping Header in any
+    // overflow-hidden ancestor here would break its sticky positioning,
+    // and that background needs to extend behind the header too. Only the
+    // cursor spotlight (scoped to this section specifically) stays here.
     <section onMouseMove={handleMouseMove} className="relative overflow-hidden">
-      <div
-        aria-hidden="true"
-        // Positioned in % so they stay roughly in place across viewport
-        // widths. Kept fully inside the section (no negative offsets) so
-        // the blur fades to nothing before it would otherwise get
-        // hard-clipped by overflow-hidden — that clip was reading as a
-        // square corner. Opacity is low: a faint ambient tint, not a
-        // visible colored shape.
-        className="aurora-blob aurora-blob-a left-[6%] top-8 h-56 w-56"
-        style={{ background: "color-mix(in srgb, var(--accent) 6%, transparent)" }}
-      />
-      <div
-        aria-hidden="true"
-        className="aurora-blob aurora-blob-b bottom-8 right-[8%] h-64 w-64"
-        style={{ background: "color-mix(in srgb, var(--accent) 5%, transparent)" }}
-      />
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute h-[420px] w-[420px] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, color-mix(in srgb, var(--accent) 7%, transparent) 0%, transparent 70%)",
+            "radial-gradient(circle, color-mix(in srgb, var(--accent) 9%, transparent) 0%, transparent 70%)",
           left: springX,
           top: springY,
           translateX: "-50%",
