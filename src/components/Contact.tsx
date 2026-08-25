@@ -35,8 +35,29 @@ export default function Contact() {
         <a
           href={links.email}
           onClick={handleEmailClick}
-          className="btn-gradient hover-lift rounded-full px-5 py-2.5 font-medium"
+          className="btn-gradient hover-lift inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-medium"
         >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={copied ? "check" : "mail"}
+              initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.5 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.15 }}
+              className="inline-flex shrink-0"
+            >
+              {copied ? (
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              )}
+            </motion.span>
+          </AnimatePresence>
           {t.sendEmail}
         </a>
         <a

@@ -1,6 +1,14 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
 
@@ -18,6 +26,20 @@ export default function Hero() {
   // in lockstep with the text next to it.
   const { scrollY } = useScroll();
   const avatarY = useTransform(scrollY, [0, 600], [0, shouldReduceMotion ? 0 : -60]);
+
+  // Cursor spotlight: a soft glow that trails the mouse inside the Hero.
+  // Pure background/transform, no filter is animated per-frame, so it's
+  // as cheap as the aurora blobs below.
+  const spotlightX = useMotionValue(400);
+  const spotlightY = useMotionValue(150);
+  const springX = useSpring(spotlightX, { stiffness: 150, damping: 20 });
+  const springY = useSpring(spotlightY, { stiffness: 150, damping: 20 });
+
+  function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    spotlightX.set(e.clientX - rect.left);
+    spotlightY.set(e.clientY - rect.top);
+  }
 
   const container: Variants = {
     hidden: {},
@@ -38,7 +60,32 @@ export default function Hero() {
   };
 
   return (
-    <section className="mx-auto flex max-w-3xl flex-col-reverse items-start gap-8 px-6 pb-16 pt-20 sm:flex-row sm:items-center sm:justify-between">
+    <section
+      onMouseMove={handleMouseMove}
+      className="relative mx-auto flex max-w-3xl flex-col-reverse items-start gap-8 overflow-hidden px-6 pb-16 pt-20 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div
+        aria-hidden="true"
+        className="aurora-blob aurora-blob-a -left-24 -top-24 h-72 w-72"
+        style={{ background: "color-mix(in srgb, var(--accent) 20%, transparent)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="aurora-blob aurora-blob-b -bottom-32 -right-16 h-80 w-80"
+        style={{ background: "color-mix(in srgb, var(--accent) 14%, transparent)" }}
+      />
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute h-[420px] w-[420px] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent) 0%, transparent 70%)",
+          left: springX,
+          top: springY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+      />
       <motion.div
         className="flex flex-col gap-6"
         variants={container}
