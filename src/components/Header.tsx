@@ -39,10 +39,23 @@ export default function Header() {
     // between adjacent sections regardless of their height or the
     // viewport's, since it's a single continuous quantity rather than a
     // threshold that can be skipped over.
+    // Center-distance alone still can't guarantee the *last* section ever
+    // wins: on a tall viewport there may not be enough scroll room for its
+    // midpoint to reach anywhere near center either (Skills, being taller,
+    // keeps winning right up to the scroll ceiling). The one thing that's
+    // always true regardless of content height is "the user can't scroll
+    // any further" — when that happens, the last section must be active,
+    // no matter what the geometry says.
     let rafId = 0;
     const onScroll = () => {
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(() => {
+        const atBottom =
+          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+        if (atBottom) {
+          setActiveId(SECTION_IDS[SECTION_IDS.length - 1]);
+          return;
+        }
         const viewportCenter = window.innerHeight / 2;
         let bestId = elements[0]?.id ?? SECTION_IDS[0];
         let bestDistance = Infinity;
