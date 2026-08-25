@@ -4,12 +4,14 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { experience } from "@/data/experience";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
+import { useDesignVariant } from "@/lib/design-variant-context";
 import Eyebrow from "@/components/Eyebrow";
 
 export default function Experience() {
   const { lang } = useLanguage();
   const t = dict[lang];
   const shouldReduceMotion = useReducedMotion();
+  const { tone } = useDesignVariant();
 
   const container: Variants = {
     hidden: {},
@@ -26,7 +28,10 @@ export default function Experience() {
   };
 
   return (
-    <section id="experiencia" className="scroll-mt-20">
+    <section
+      id="experiencia"
+      className={`${tone("experience") === "gray" ? "tone-gray" : "tone-white"} scroll-mt-20`}
+    >
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>{t.experience.eyebrow}</Eyebrow>
         <div className="relative">

@@ -4,12 +4,14 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { skillGroups } from "@/data/skills";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
+import { useDesignVariant } from "@/lib/design-variant-context";
 import Eyebrow from "@/components/Eyebrow";
 
 export default function Skills() {
   const { lang } = useLanguage();
   const t = dict[lang];
   const shouldReduceMotion = useReducedMotion();
+  const { tone } = useDesignVariant();
 
   const container: Variants = {
     hidden: {},
@@ -26,7 +28,10 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="scroll-mt-20">
+    <section
+      id="skills"
+      className={`${tone("skills") === "gray" ? "tone-gray" : "tone-white"} scroll-mt-20`}
+    >
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>{t.skills.eyebrow}</Eyebrow>
         <motion.div

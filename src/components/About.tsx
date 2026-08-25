@@ -3,14 +3,22 @@
 import { links } from "@/data/links";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
+import { useDesignVariant } from "@/lib/design-variant-context";
 import Eyebrow from "@/components/Eyebrow";
 
 export default function About() {
   const { lang } = useLanguage();
   const t = dict[lang].about;
+  const { variant } = useDesignVariant();
 
   return (
-    <section id="sobre-mi" className="section-band scroll-mt-20">
+    // Option 1 (variant "a"): stays transparent so the extended aurora
+    // fill behind it (see AuroraBackground) shows through, seamless with
+    // Hero above. Option 2 (variant "b"): normal opaque white section.
+    <section
+      id="sobre-mi"
+      className={variant === "a" ? "scroll-mt-20" : "tone-white scroll-mt-20"}
+    >
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>{t.eyebrow}</Eyebrow>
         <p className="max-w-2xl text-muted">{t.bio}</p>

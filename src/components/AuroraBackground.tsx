@@ -2,8 +2,16 @@
 
 import { useEffect } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useDesignVariant } from "@/lib/design-variant-context";
+
+// Approximate: enough to cover Hero alone (option 2), or Hero + About
+// (option 1) — see design-variant-context.tsx for what these map to.
+const HEIGHT_HERO_ONLY = 640;
+const HEIGHT_HERO_AND_ABOUT = 960;
 
 export default function AuroraBackground() {
+  const { variant } = useDesignVariant();
+  const height = variant === "a" ? HEIGHT_HERO_AND_ABOUT : HEIGHT_HERO_ONLY;
   // Tracked with page-relative coordinates (already scroll-adjusted) via a
   // window-level listener, not a rect scoped to Hero — Hero starts below
   // the header and clips at its own top edge, which was cutting the glow
@@ -27,7 +35,11 @@ export default function AuroraBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px] overflow-hidden"
+      // A solid fill (not just the blobs) so Hero — which has no background
+      // of its own — reads as gray in both variants; height/reach is the
+      // only thing that changes between them.
+      className="pointer-events-none absolute inset-x-0 top-0 -z-10 overflow-hidden"
+      style={{ height, background: "var(--band)" }}
     >
       {/* Full-width wash right at the very top. The header pill is opaque
           white, so it will always cover whatever's directly behind it —

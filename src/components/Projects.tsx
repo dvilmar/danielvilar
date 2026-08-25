@@ -5,6 +5,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { projects } from "@/data/projects";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
+import { useDesignVariant } from "@/lib/design-variant-context";
 import Eyebrow from "@/components/Eyebrow";
 import ProjectModal from "@/components/ProjectModal";
 import TiltCard from "@/components/TiltCard";
@@ -14,6 +15,7 @@ export default function Projects() {
   const { lang } = useLanguage();
   const t = dict[lang];
   const shouldReduceMotion = useReducedMotion();
+  const { tone } = useDesignVariant();
 
   const container: Variants = {
     hidden: {},
@@ -31,7 +33,10 @@ export default function Projects() {
   const selected = selectedIndex !== null ? projects[lang][selectedIndex] : null;
 
   return (
-    <section id="proyectos" className="section-band scroll-mt-20">
+    <section
+      id="proyectos"
+      className={`${tone("projects") === "gray" ? "tone-gray" : "tone-white"} scroll-mt-20`}
+    >
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>{t.projects.eyebrow}</Eyebrow>
         <motion.div

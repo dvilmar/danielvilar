@@ -3,8 +3,10 @@ import { Fraunces, Geist_Mono, Manrope } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
 import { LanguageProvider } from "@/lib/language-context";
+import { DesignVariantProvider } from "@/lib/design-variant-context";
 import SkipLink from "@/components/SkipLink";
 import ScrollProgress from "@/components/ScrollProgress";
+import DesignVariantToggle from "@/components/DesignVariantToggle";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#fafafa",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -63,8 +65,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <ScrollProgress />
         <LanguageProvider>
-          <SkipLink />
-          <MotionConfig reducedMotion="user">{children}</MotionConfig>
+          <DesignVariantProvider>
+            <SkipLink />
+            <MotionConfig reducedMotion="user">{children}</MotionConfig>
+            <DesignVariantToggle />
+          </DesignVariantProvider>
         </LanguageProvider>
         <Analytics />
       </body>

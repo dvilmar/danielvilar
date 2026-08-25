@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { links } from "@/data/links";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
+import { useDesignVariant } from "@/lib/design-variant-context";
 import Eyebrow from "@/components/Eyebrow";
 
 export default function Contact() {
@@ -12,6 +13,7 @@ export default function Contact() {
   const t = dict[lang].contact;
   const shouldReduceMotion = useReducedMotion();
   const [copied, setCopied] = useState(false);
+  const { tone } = useDesignVariant();
 
   async function handleEmailClick() {
     // A plain mailto: link silently does nothing if the device has no
@@ -28,7 +30,10 @@ export default function Contact() {
   }
 
   return (
-    <section id="contacto" className="section-band scroll-mt-20">
+    <section
+      id="contacto"
+      className={`${tone("contact") === "gray" ? "tone-gray" : "tone-white"} scroll-mt-20`}
+    >
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>{t.eyebrow}</Eyebrow>
         <p className="max-w-xl text-muted">{t.intro}</p>
