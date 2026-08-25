@@ -26,7 +26,7 @@ export default function Experience() {
   };
 
   return (
-    <section id="experiencia" className="section-band scroll-mt-20">
+    <section id="experiencia" className="scroll-mt-20">
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>{t.experience.eyebrow}</Eyebrow>
         <div className="relative">

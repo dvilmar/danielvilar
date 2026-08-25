@@ -31,37 +31,39 @@ export default function Projects() {
   const selected = selectedIndex !== null ? projects[lang][selectedIndex] : null;
 
   return (
-    <section id="proyectos" className="mx-auto max-w-3xl scroll-mt-20 px-6 py-16">
-      <Eyebrow>{t.projects.eyebrow}</Eyebrow>
-      <motion.div
-        className="grid grid-cols-1 gap-8"
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        {/* Keyed by index, not project.name: the name is translated
-            per-language, so a text-based key would remount this card on
-            language switch — and since the parent's whileInView trigger is
-            viewport={{ once: true }}, a freshly-mounted card never gets the
-            signal to animate in and stays stuck at opacity 0. */}
-        {projects[lang].map((project, index) => (
-          <motion.div key={index} variants={item}>
-            <TiltCard
-              onClick={() => setSelectedIndex(index)}
-              className="glass h-full w-full rounded-lg p-6 text-left sm:p-8"
-            >
-              <h3 className="text-lg font-medium">{project.name}</h3>
-              <p className="mt-2 text-sm text-muted">{project.description}</p>
-              <span className="mt-4 inline-block text-xs font-semibold uppercase tracking-widest text-accent">
-                {t.projects.viewMore}
-              </span>
-            </TiltCard>
-          </motion.div>
-        ))}
-      </motion.div>
+    <section id="proyectos" className="section-band scroll-mt-20">
+      <div className="mx-auto max-w-3xl px-6 py-16">
+        <Eyebrow>{t.projects.eyebrow}</Eyebrow>
+        <motion.div
+          className="grid grid-cols-1 gap-8"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {/* Keyed by index, not project.name: the name is translated
+              per-language, so a text-based key would remount this card on
+              language switch — and since the parent's whileInView trigger is
+              viewport={{ once: true }}, a freshly-mounted card never gets the
+              signal to animate in and stays stuck at opacity 0. */}
+          {projects[lang].map((project, index) => (
+            <motion.div key={index} variants={item}>
+              <TiltCard
+                onClick={() => setSelectedIndex(index)}
+                className="glass h-full w-full rounded-lg p-6 text-left sm:p-8"
+              >
+                <h3 className="text-lg font-medium">{project.name}</h3>
+                <p className="mt-2 text-sm text-muted">{project.description}</p>
+                <span className="mt-4 inline-block text-xs font-semibold uppercase tracking-widest text-accent">
+                  {t.projects.viewMore}
+                </span>
+              </TiltCard>
+            </motion.div>
+          ))}
+        </motion.div>
 
-      <ProjectModal project={selected} onClose={() => setSelectedIndex(null)} />
+        <ProjectModal project={selected} onClose={() => setSelectedIndex(null)} />
+      </div>
     </section>
   );
 }

@@ -26,7 +26,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="section-band scroll-mt-20">
+    <section id="skills" className="scroll-mt-20">
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>{t.skills.eyebrow}</Eyebrow>
         <motion.div
