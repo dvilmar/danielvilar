@@ -124,31 +124,37 @@ export default function Header() {
           </button>
         </div>
       </div>
-      {open && (
-        <nav
-          id="mobile-nav"
-          className="glass mx-auto mt-2 flex max-w-3xl flex-col gap-1 rounded-2xl px-6 py-4 text-sm text-muted sm:hidden"
-        >
-          {NAV_ITEMS.map((item) => (
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            id="mobile-nav"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: "easeInOut" }}
+            className="glass mx-auto mt-2 flex max-w-3xl flex-col gap-1 overflow-hidden rounded-2xl px-6 py-4 text-sm text-muted sm:hidden"
+          >
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="rounded-md px-2 py-2 hover:bg-background hover:text-foreground"
+              >
+                {item.label}
+              </a>
+            ))}
             <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
+              href={links.github}
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-md px-2 py-2 hover:bg-background hover:text-foreground"
             >
-              {item.label}
+              GitHub
             </a>
-          ))}
-          <a
-            href={links.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-md px-2 py-2 hover:bg-background hover:text-foreground"
-          >
-            GitHub
-          </a>
-        </nav>
-      )}
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }

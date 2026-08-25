@@ -44,7 +44,9 @@ export default function Home() {
           <Contact />
         </Reveal>
       </main>
-      <Footer />
+      <Reveal>
+        <Footer />
+      </Reveal>
     </>
   );
 }
