@@ -15,7 +15,21 @@ const personJsonLd = {
   name: "Daniel Vilar Martínez",
   jobTitle: "Full Stack Developer",
   url: "https://dvilmar.vercel.app",
+  email: links.email.replace("mailto:", ""),
   sameAs: [links.github, links.linkedin],
+  worksFor: {
+    "@type": "Organization",
+    name: "GUADALTEL, S.A.",
+  },
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "IES Alixar",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Sevilla",
+    addressCountry: "ES",
+  },
 };
 
 export default function Home() {

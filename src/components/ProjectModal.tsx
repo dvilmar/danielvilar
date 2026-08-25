@@ -117,6 +117,17 @@ export default function ProjectModal({
               </button>
             </div>
 
+            {project.image && (
+              <div className="mt-4 aspect-video w-full overflow-hidden rounded-lg border border-border">
+                <img
+                  src={project.image}
+                  alt={project.name}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            )}
+
             <p className="mt-4 text-sm text-muted">{project.description}</p>
 
             <ul className="mt-4 flex flex-col gap-2 text-sm text-muted">

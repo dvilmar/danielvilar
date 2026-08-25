@@ -3,6 +3,9 @@ export type Project = {
   description: string;
   highlights: string[];
   href?: string;
+  // Screenshot/GIF for the modal — optional until real captures exist for
+  // each project; ProjectModal only renders this block when it's set.
+  image?: string;
 };
 
 export const projects: Record<"es" | "en", Project[]> = {
