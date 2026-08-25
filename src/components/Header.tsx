@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { links } from "@/data/links";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
 
+const SECTION_IDS = ["sobre-mi", "experiencia", "proyectos", "skills", "contacto"];
+
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [activeId, setActiveId] = useState<string>(SECTION_IDS[0]);
   const { lang, toggle } = useLanguage();
   const t = dict[lang];
+  const shouldReduceMotion = useReducedMotion();
 
   const NAV_ITEMS = [
     { href: "#sobre-mi", label: t.nav.about },
@@ -18,31 +23,78 @@ export default function Header() {
     { href: "#contacto", label: t.nav.contact },
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveId(entry.target.id);
+        }
+      },
+      { rootMargin: "-96px 0px -55% 0px", threshold: 0 },
+    );
+    const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      (el): el is HTMLElement => el !== null,
+    );
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <header className="sticky top-4 z-10 px-4">
+    <motion.header
+      className="sticky top-4 z-10 px-4"
+      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: shouldReduceMotion ? 0 : 0.5, ease: "easeOut" }}
+    >
       <div className="glass mx-auto flex max-w-3xl items-center justify-between rounded-2xl px-6 py-3 backdrop-blur">
         <a href="#" className="font-display text-base font-semibold text-foreground">
           dvilmar
         </a>
         <nav className="hidden items-center gap-6 text-sm text-muted sm:flex">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="border-b border-transparent pb-0.5 transition-colors hover:border-accent hover:text-foreground"
-            >
-              {item.label}
-            </a>
-          ))}
+          {NAV_ITEMS.map((item) => {
+            const id = item.href.slice(1);
+            const isActive = id === activeId;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`relative border-b border-transparent pb-0.5 transition-colors hover:border-border hover:text-foreground ${isActive ? "text-foreground" : ""}`}
+              >
+                {item.label}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-indicator"
+                    className="absolute inset-x-0 -bottom-0.5 h-px bg-accent"
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 380, damping: 30 }
+                    }
+                  />
+                )}
+              </a>
+            );
+          })}
         </nav>
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={toggle}
             aria-label={t.nav.switchLang}
-            className="cursor-pointer rounded-full border border-border px-2.5 py-1 text-xs font-semibold text-muted hover:border-accent hover:text-accent"
+            className="relative cursor-pointer overflow-hidden rounded-full border border-border px-2.5 py-1 text-xs font-semibold text-muted hover:border-accent hover:text-accent"
           >
-            {lang === "es" ? "EN" : "ES"}
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={lang}
+                className="inline-block"
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: shouldReduceMotion ? 0 : 6 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.15 }}
+              >
+                {lang === "es" ? "EN" : "ES"}
+              </motion.span>
+            </AnimatePresence>
           </button>
           <a
             href={links.github}
@@ -97,6 +149,6 @@ export default function Header() {
           </a>
         </nav>
       )}
-    </header>
+    </motion.header>
   );
 }

@@ -4,6 +4,7 @@ import { MotionConfig } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
 import { LanguageProvider } from "@/lib/language-context";
 import SkipLink from "@/components/SkipLink";
+import ScrollProgress from "@/components/ScrollProgress";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <ScrollProgress />
         <LanguageProvider>
           <SkipLink />
           <MotionConfig reducedMotion="user">{children}</MotionConfig>
