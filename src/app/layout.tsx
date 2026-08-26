@@ -52,7 +52,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${manrope.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <div aria-hidden="true" className="grain-overlay" />
         <ScrollProgress />
         <LanguageProvider>
           <SkipLink />

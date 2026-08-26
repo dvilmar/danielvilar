@@ -119,20 +119,6 @@ body {
   }
 }
 
-/* Barely-there film grain over the whole page, for depth without adding
-   any color of its own. mix-blend-mode: overlay means it lightens dark
-   pixels and darkens light ones by a tiny amount rather than sitting on
-   top as a flat tint, so it reads as texture, not haze. */
-.grain-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  pointer-events: none;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-}
-
 @keyframes aurora-drift-b {
   0%,
   100% {
