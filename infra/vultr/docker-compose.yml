@@ -1,0 +1,28 @@
+# Se ejecuta en el propio VPS, con el repo clonado en /opt/danielvilar y
+# este archivo un nivel dentro (infra/vultr/). Build local, sin depender
+# de ningún registry (no hay GitHub Actions para publicar imágenes).
+#
+# IMPORTANTE (máquina compartida con los bots de trading, ~950MB RAM total):
+#   - Puerto de host fijado a 127.0.0.1:8091 -- no toca 3000 (dashboard) ni
+#     8765 (api) de qx-core.
+#   - mem_limit/cpus acotados: un sitio estático servido por Nginx no
+#     necesita más, y esto pone un techo duro para que un fallo aquí no
+#     pueda robarle memoria a un motor de trading en vivo.
+services:
+  app:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    container_name: danielvilar-portfolio
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8091:80"
+    mem_limit: 48m
+    memswap_limit: 48m
+    cpus: "0.25"
+    pids_limit: 50
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

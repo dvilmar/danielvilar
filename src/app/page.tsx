@@ -1,0 +1,64 @@
+import Header from "@/components/Header";
+import HeroAboutGroup from "@/components/HeroAboutGroup";
+import AuroraBackground from "@/components/AuroraBackground";
+import Experience from "@/components/Experience";
+import Projects from "@/components/Projects";
+import Skills from "@/components/Skills";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
+import { links } from "@/data/links";
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Daniel Vilar Martínez",
+  jobTitle: "Full Stack Developer",
+  url: "https://dvilmar.vercel.app",
+  email: links.email.replace("mailto:", ""),
+  sameAs: [links.github, links.linkedin],
+  worksFor: {
+    "@type": "Organization",
+    name: "GUADALTEL, S.A.",
+  },
+  alumniOf: {
+    "@type": "EducationalOrganization",
+    name: "IES Alixar",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Sevilla",
+    addressCountry: "ES",
+  },
+};
+
+export default function Home() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+      <AuroraBackground />
+      <Header />
+      <main id="contenido" className="flex-1">
+        <HeroAboutGroup />
+        <Reveal>
+          <Experience />
+        </Reveal>
+        <Reveal>
+          <Projects />
+        </Reveal>
+        <Reveal>
+          <Skills />
+        </Reveal>
+        <Reveal>
+          <Contact />
+        </Reveal>
+      </main>
+      <Reveal>
+        <Footer />
+      </Reveal>
+    </>
+  );
+}
