@@ -7,7 +7,6 @@ import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
-import LanguageTransition from "@/components/LanguageTransition";
 import { links } from "@/data/links";
 
 const personJsonLd = {
@@ -43,21 +42,19 @@ export default function Home() {
       <AuroraBackground />
       <Header />
       <main id="contenido" className="flex-1">
-        <LanguageTransition>
-          <HeroAboutGroup />
-          <Reveal>
-            <Experience />
-          </Reveal>
-          <Reveal>
-            <Projects />
-          </Reveal>
-          <Reveal>
-            <Skills />
-          </Reveal>
-          <Reveal>
-            <Contact />
-          </Reveal>
-        </LanguageTransition>
+        <HeroAboutGroup />
+        <Reveal>
+          <Experience />
+        </Reveal>
+        <Reveal>
+          <Projects />
+        </Reveal>
+        <Reveal>
+          <Skills />
+        </Reveal>
+        <Reveal>
+          <Contact />
+        </Reveal>
       </main>
       <Reveal>
         <Footer />
