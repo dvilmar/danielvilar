@@ -90,7 +90,7 @@ export default function ProjectModal({
             aria-modal="true"
             aria-labelledby="project-modal-title"
             onClick={(e) => e.stopPropagation()}
-            className="max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-xl border border-border bg-surface p-6 shadow-2xl sm:p-8"
+            className="max-h-[85vh] w-full max-w-6xl overflow-y-auto rounded-xl border border-border bg-surface p-6 shadow-2xl sm:p-8"
             initial={{ opacity: 0, scale: 0.97, y: 8 }}
             animate={{
               opacity: 1,

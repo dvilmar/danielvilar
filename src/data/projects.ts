@@ -13,7 +13,7 @@ export const projects: Record<"es" | "en", Project[]> = {
     {
       name: "QX-Core",
       description:
-        "Sistema de trading algorítmico multi-estrategia: motor BTC/USDT en producción (Binance), estrategia de reversión a VWAP para cuentas de fondeo en paper trading (Alpaca), y ~19 fuentes de retorno investigadas con backtest riguroso.",
+        "Sistema de investigación, backtesting y producción de trading cuantitativo: producción con motor BTC/USDT en producción (ByBit), estrategia de reversión a VWAP para cuentas de fondeo en paper trading (Alpaca), y ~19 fuentes de retorno investigadas con backtest riguroso.",
       highlights: [
         "Motor BTC/USDT corriendo en producción real sobre Binance",
         "Backtesting riguroso: walk-forward, Monte Carlo, validación out-of-sample",
@@ -25,7 +25,7 @@ export const projects: Record<"es" | "en", Project[]> = {
     {
       name: "Tavero",
       description:
-        "App de gestión para restaurantes: pedidos y menús con fotos de platos, con web pública y actualizaciones OTA en producción.",
+        "Aplicación de gestión para restaurantes: pedidos y menús con fotos de platos, con web pública y actualizaciones OTA en producción.",
       highlights: [
         "App móvil (Expo/React Native) + web pública (Next.js en Vercel)",
         "Backend en Supabase (Postgres + Auth)",
