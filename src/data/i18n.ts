@@ -45,6 +45,7 @@ export const dict = {
     },
     modal: {
       viewOnGithub: "Ver en GitHub",
+      viewWebsite: "Ver página",
       close: "Cerrar",
     },
     notFound: {
@@ -100,6 +101,7 @@ export const dict = {
     },
     modal: {
       viewOnGithub: "View on GitHub",
+      viewWebsite: "View website",
       close: "Close",
     },
     notFound: {

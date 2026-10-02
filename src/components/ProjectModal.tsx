@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "@/data/projects";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
+import ProjectCarousel from "./ProjectCarousel";
+
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
@@ -117,17 +119,6 @@ export default function ProjectModal({
               </button>
             </div>
 
-            {project.image && (
-              <div className="mt-4 aspect-video w-full overflow-hidden rounded-lg border border-border">
-                <img
-                  src={project.image}
-                  alt={project.name}
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            )}
-
             <p className="mt-4 text-sm text-muted">{project.description}</p>
 
             <ul className="mt-4 flex flex-col gap-2 text-sm text-muted">
@@ -139,15 +130,32 @@ export default function ProjectModal({
               ))}
             </ul>
 
-            {project.href && (
-              <a
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover-lift mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:border-accent hover:text-accent"
-              >
-                {t.viewOnGithub}
-              </a>
+            <ProjectCarousel images={project.images} projectName={project.name}/>
+
+            {project.links && (
+              <div className="mt-6 flex flex-wrap gap-3">
+                {project.links.github && (
+                  <a
+                    href={project.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-gradient hover-lift inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium shadow-[0_8px_20px_-8px_color-mix(in_srgb,var(--accent)_60%,transparent)]"
+                  >
+                    {t.viewOnGithub}
+                  </a>
+                )}
+
+                {project.links.website && (
+                  <a
+                    href={project.links.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-gradient hover-lift inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium shadow-[0_8px_20px_-8px_color-mix(in_srgb,var(--accent)_60%,transparent)]"
+                  >
+                    {t.viewWebsite}
+                  </a>
+                )}
+              </div>
             )}
           </motion.div>
           </motion.div>

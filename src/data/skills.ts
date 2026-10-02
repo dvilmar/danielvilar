@@ -20,7 +20,7 @@ export const skillGroups: Record<"es" | "en", SkillGroup[]> = {
     },
     {
       label: "Trading algorítmico",
-      items: ["Python", "Backtesting", "Binance API", "Alpaca API", "Análisis cuantitativo"],
+      items: ["Python", "Backtesting", "ByBit API", "Alpaca API", "Análisis cuantitativo"],
     },
   ],
   en: [

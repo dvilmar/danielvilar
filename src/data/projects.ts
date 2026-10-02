@@ -2,10 +2,11 @@ export type Project = {
   name: string;
   description: string;
   highlights: string[];
-  href?: string;
-  // Screenshot/GIF for the modal — optional until real captures exist for
-  // each project; ProjectModal only renders this block when it's set.
-  image?: string;
+  images: string[];
+  links?: {
+    github?: string;
+    website?: string;
+  };
 };
 
 export const projects: Record<"es" | "en", Project[]> = {
@@ -13,14 +14,13 @@ export const projects: Record<"es" | "en", Project[]> = {
     {
       name: "QX-Core",
       description:
-        "Sistema de investigación, backtesting y producción de trading cuantitativo: producción con motor BTC/USDT en producción (ByBit), estrategia de reversión a VWAP para cuentas de fondeo en paper trading (Alpaca), y ~19 fuentes de retorno investigadas con backtest riguroso.",
+        "Sistema de investigación, backtesting y producción de trading cuantitativo: producción con motor BTC/USDT en producción (ByBit), estrategia de reversión a VWAP para cuentas de fondeo en paper trading (Alpaca), y múltiples fuentes de retorno investigadas con backtest riguroso.",
       highlights: [
-        "Motor BTC/USDT corriendo en producción real sobre Binance",
-        "Backtesting riguroso: walk-forward, Monte Carlo, validación out-of-sample",
-        "~19 fuentes de retorno investigadas con criterios estadísticos estrictos",
-        "Estrategia de reversión a VWAP en paper trading sobre Alpaca",
+        "Marco de validación estadística riguroso (walk-forward, Monte Carlo con bootstrap por bloques, Sharpe deflactado, PBO, prueba de realidad de White y corrección por comparaciones múltiples.",
+        "Auditoría de fidelidad de los backtests mediante un gemelo digital que reproduce el motor real contra un exchange simulado (libro, stops intrabarra, margen e interés) y tests de ausencia de look-ahead más backend FastAPI y dashboard React para monitorización.",
       ],
-      href: "https://github.com/dvilmar/qx-core-demo",
+      links: { github: "https://github.com/dvilmar/qx-core-demo" },
+      images: ["/projects/qx-core.png"],
     },
     {
       name: "Tavero",
@@ -32,16 +32,23 @@ export const projects: Record<"es" | "en", Project[]> = {
         "Actualizaciones OTA en producción vía EAS, sin pasar por las tiendas",
         "Gestión de menús y fotos de platos para el restaurante",
       ],
+      links: { website: "https://tavero.es" },
+      images: [
+        "/projects/tavero1.gif",
+        "/projects/tavero2.gif",
+        "/projects/tavero3.png",
+      ],
     },
     {
-      name: "Proyecto Final CFGS DAW",
+      name: "BookMyCut - Proyecto CFGS",
       description:
-        "Proyecto final del Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Web (IES Alixar, Castilleja de la Cuesta - Sevilla).",
+        "Proyecto para CFGS DAW",
       highlights: [
-        "Proyecto final del ciclo, IES Alixar (Castilleja de la Cuesta - Sevilla)",
+        "Aplicación spring",
         "Desarrollo web completo, de diseño a despliegue",
       ],
-      href: "https://github.com/dvilmar/dvilmar-proyecto-final",
+      images: ["/projects/bookmycut.png"],
+      links: { github: "https://github.com/dvilmar/dvilmar-proyecto-final" },    
     },
   ],
   en: [
@@ -55,7 +62,8 @@ export const projects: Record<"es" | "en", Project[]> = {
         "~19 return sources researched with strict statistical criteria",
         "VWAP reversion strategy in paper trading on Alpaca",
       ],
-      href: "https://github.com/dvilmar/qx-core-demo",
+      links: { github: "https://github.com/dvilmar/qx-core-demo" },
+      images: ["/projects/qx-core.png"],
     },
     {
       name: "Tavero",
@@ -67,6 +75,12 @@ export const projects: Record<"es" | "en", Project[]> = {
         "Production OTA updates via EAS, no app-store review needed",
         "Menu and dish photo management for the restaurant",
       ],
+      links: { website: "https://tavero.es" },      
+      images: [
+        "/projects/tavero1.gif",
+        "/projects/tavero2.gif",
+        "/projects/tavero3.png",
+      ],
     },
     {
       name: "CFGS DAW Final Project",
@@ -76,7 +90,8 @@ export const projects: Record<"es" | "en", Project[]> = {
         "Final project of the program, IES Alixar (Castilleja de la Cuesta - Seville)",
         "Full web development, from design to deployment",
       ],
-      href: "https://github.com/dvilmar/dvilmar-proyecto-final",
+      images: ["/projects/cfgs.png"],
+      links: { github: "https://github.com/dvilmar/dvilmar-proyecto-final" },
     },
   ],
 };
