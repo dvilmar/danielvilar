@@ -19,8 +19,9 @@ export default function About() {
         <Eyebrow>{t.eyebrow}</Eyebrow>
         <p className="max-w-2xl text-muted">{t.bio}</p>
         <a
-          href={links.cv}
-          download="Daniel Vilar Martinez - CV.pdf"
+          href={links.cv[lang]}
+          target="_blank"
+          rel="noopener noreferrer"
           className="hover-lift mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:border-accent hover:text-accent"
         >
           {t.downloadCv}
