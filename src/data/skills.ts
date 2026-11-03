@@ -4,7 +4,7 @@ export const skillGroups: Record<"es" | "en", SkillGroup[]> = {
   es: [
     {
       label: "Frameworks y lenguajes",
-      items: ["Java", "Spring Boot", "JPA/Hibernate", "React", "Node", "Redux", "TypeScript"],
+      items: ["Java", "Spring Boot", "JPA/Hibernate", "Node", "TypeScript"],
     },
     {
       label: "Mensajería y arquitectura",
@@ -26,7 +26,7 @@ export const skillGroups: Record<"es" | "en", SkillGroup[]> = {
   en: [
     {
       label: "Frameworks & languages",
-      items: ["Java", "Spring Boot", "JPA/Hibernate", "React", "Node", "Redux", "TypeScript"],
+      items: ["Java", "Spring Boot", "JPA/Hibernate", "Node", "TypeScript"],
     },
     {
       label: "Messaging & architecture",
