@@ -25,7 +25,6 @@ export const dict = {
     about: {
       eyebrow: "01. Sobre mí",
       bio: "Full Stack Developer especializado en Java/Spring Boot y React, con experiencia en arquitecturas de microservicios, mensajería asíncrona (Kafka) y pipelines de CI/CD. Estudié Desarrollo de Aplicaciones Web (CFGS DAW) en el IES Alixar y desde entonces combino el desarrollo profesional con proyectos propios de trading algorítmico, donde diseño, backtesteo y opero estrategias con foco en rigor estadístico y gestión de riesgo. Me interesa el software bien construido: sistemas simples, testeados y fáciles de razonar.",
-      downloadCv: "Descargar CV",
     },
     experience: {
       eyebrow: "02. Experiencia",
@@ -81,7 +80,6 @@ export const dict = {
     about: {
       eyebrow: "01. About",
       bio: "Full Stack Developer specialized in Java/Spring Boot and React, with experience in microservices architectures, async messaging (Kafka) and CI/CD pipelines. I studied Web Application Development (CFGS DAW) at IES Alixar, and since then I've combined professional development with my own algorithmic trading projects, where I design, backtest and run strategies with a focus on statistical rigor and risk management. I care about well-built software: simple systems that are tested and easy to reason about.",
-      downloadCv: "Download CV",
     },
     experience: {
       eyebrow: "02. Experience",

@@ -1,6 +1,5 @@
 "use client";
 
-import { links } from "@/data/links";
 import { dict } from "@/data/i18n";
 import { useLanguage } from "@/lib/language-context";
 import Eyebrow from "@/components/Eyebrow";
@@ -18,14 +17,6 @@ export default function About() {
       <div className="mx-auto max-w-3xl px-6 py-16">
         <Eyebrow>{t.eyebrow}</Eyebrow>
         <p className="max-w-2xl text-muted">{t.bio}</p>
-        <a
-          href={links.cv[lang]}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover-lift mt-6 inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium hover:border-accent hover:text-accent"
-        >
-          {t.downloadCv}
-        </a>
       </div>
     </section>
   );
